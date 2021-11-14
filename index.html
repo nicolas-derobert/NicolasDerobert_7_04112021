@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+			integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<!-- Bootstrap CSS -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+			integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="asset/css/style.css" type="text/css" />
+		<title>Les petits plats</title>
+	</head>
+	<body>
+		<header>
+			<div class="container-fluid text-center">
+				<img src="asset/img/logo.svg" alt="" />
+				<h1>Les petits plats</h1>
+			</div>
+		</header>
+		<main>
+			<section class="container-fluid" id="search">
+				<div class="input-group">
+					<input
+						type="text"
+						class="form-control"
+						placeholder="Recipient's username"
+						aria-label="Recipient's username"
+						aria-describedby="basic-addon2"
+						id="main-search-input"
+					/>
+					<div class="input-group-append">
+						<span class="input-group-text" id="basic-addon2"
+							><i class="fas fa-search"></i
+						></span>
+					</div>
+				</div>
+				<div id="search-resume">
+					<span id="search-resume-ingredients"></span>
+					<span id="search-resume-appareil"></span>
+					<span id="search-resume-ustensiles"></span>
+				</div>
+				<div class="accordion">
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingOne">
+							<button
+								class="accordion-button"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#collapseOne"
+								aria-expanded="true"
+								aria-controls="collapseOne"
+								id="menu-ingredients"
+							>
+								<input
+									id="input-ingredients"
+									type="text"
+									class=""
+									placeholder="Recherche un ingrédient"
+									aria-label="Username"
+									aria-describedby="basic-addon1"
+								/>
+								<span id="title-ingredients" class="show">Ingredients</span>
+							</button>
+						</h2>
+						<div
+							class="accordion-collapse collapse"
+							aria-labelledby="headingOne"
+							data-bs-parent="#accordionExample"
+							id="area-list-ingredients"
+						>
+							<div class="accordion-body ingredients">
+								<ul id="menu-list-ingredients"></ul>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingTwo">
+							<button
+								class="accordion-button collapsed"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#collapseTwo"
+								aria-expanded="false"
+								aria-controls="collapseTwo"
+								id="menu-appareil"
+							>
+							<input
+							id="input-appareil"
+							type="text"
+							class=""
+							placeholder="Recherche un appareil"
+							aria-label="Username"
+							aria-describedby="basic-addon1"
+						/>
+						<span id="title-appareil" class="show">Appareils</span>
+							</button>
+						</h2>
+						<div
+							class="accordion-collapse collapse"
+							aria-labelledby="headingTwo"
+							data-bs-parent="#accordionExample"
+							id="area-list-appareil"
+						>
+							<div class="accordion-body appareil">
+								<ul id="menu-list-appareil"></ul>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingThree">
+							<button
+								class="accordion-button collapsed"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#collapseThree"
+								aria-expanded="false"
+								aria-controls="collapseThree"
+								id="menu-ustensiles"
+							>
+							<input
+							id="input-ustensiles"
+							type="text"
+							class=""
+							placeholder="Username"
+							aria-label="Username"
+							aria-describedby="basic-addon1"
+						/>
+						<span id="title-ustensiles" class="show">Ustensiles</span>
+							</button>
+						</h2>
+						<div
+							class="accordion-collapse collapse"
+							aria-labelledby="headingThree"
+							data-bs-parent="#accordionExample"
+							id="area-list-ustensiles"
+						>
+							<div class="accordion-body ustensiles">
+								<ul id="menu-list-ustensiles"></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="container-fluid" id="results">
+
+			</section>
+		</main>
+		<footer></footer>
+
+		<!--  jQuery and Bootstrap Bundle (includes Popper) -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+			crossorigin="anonymous"
+		></script>
+		<script type="text/javascript" src="asset/js/recipes.js" defer></script>
+		<script
+			type="text/javascript"
+			src="asset/js/generic-scripts.js"
+			defer
+		></script>
+		<!-- <script type="text/javascript" src="asset/js/index-scripts.js" defer></script> -->
+	</body>
+</html>

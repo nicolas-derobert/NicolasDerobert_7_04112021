@@ -1,0 +1,257 @@
+// /* Dropdown Button */
+// .dropbtn {
+//   background-color: #04AA6D;
+//   color: white;
+//   padding: 16px;
+//   font-size: 16px;
+//   border: none;
+//   cursor: pointer;
+// }
+
+// /* Dropdown button on hover & focus */
+// .dropbtn:hover, .dropbtn:focus {
+//   background-color: #3e8e41;
+// }
+
+// /* The search field */
+// #myInput {
+//   box-sizing: border-box;
+//   background-image: url('searchicon.png');
+//   background-position: 14px 12px;
+//   background-repeat: no-repeat;
+//   font-size: 16px;
+//   padding: 14px 20px 12px 45px;
+//   border: none;
+//   border-bottom: 1px solid #ddd;
+// }
+
+// /* The search field when it gets focus/clicked on */
+// #myInput:focus {outline: 3px solid #ddd;}
+
+// /* The container <div> - needed to position the dropdown content */
+// .dropdown {
+//   position: relative;
+//   display: inline-block;
+// }
+
+// /* Dropdown Content (Hidden by Default) */
+// .dropdown-content {
+//   display: none;
+//   position: absolute;
+//   background-color: #f6f6f6;
+//   min-width: 230px;
+//   border: 1px solid #ddd;
+//   z-index: 1;
+// }
+
+// /* Links inside the dropdown */
+// .dropdown-content a {
+//   color: black;
+//   padding: 12px 16px;
+//   text-decoration: none;
+//   display: block;
+// }
+
+// /* Change color of dropdown links on hover */
+// .dropdown-content a:hover {background-color: #f1f1f1}
+
+// /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+// .show {display:block;}
+
+
+// /*///Piste 1 : https://www.youtube.com/watch?v=k4gzE80FKb0 & https://github.com/Godsont/Custom-Select-Box
+// // Piste 2 :https://www.w3schools.com/howto/howto_js_dropdown.asp
+
+
+// .visually-hidden {
+// 	border: 0;
+// 	clip: rect(1px 1px 1px 1px);
+// 	clip: rect(1px, 1px, 1px, 1px);
+// 	height: 1px;
+// 	margin: -1px;
+// 	overflow: hidden;
+// 	padding: 0;
+// 	position: absolute;
+// 	white-space: nowrap;
+// 	width: 1px;
+// }
+
+// .Select {
+// 	display: flex;
+// 	margin-bottom: 1rem;
+// 	@include mobile-generic {
+// 	display: none;
+// 	}
+// 	position: relative;
+// 	margin-left: 2vw;
+// 	width: 40vw;
+// 	display: flex;
+// 	flex-flow: row nowrap;
+// 	justify-content: space-between;
+// 	align-items: center;
+// 	#sort-label{
+// 		font-weight: bold;
+// 	}
+// }
+
+// .Select-label {
+// 	font-size: 1rem;
+// 	margin-bottom: 0.25rem;
+// 	margin-left: 30px;
+// }
+
+// /* Reset Select */
+// select {
+// 	background-image: none;
+// 	border: 0 !important;
+// 	box-shadow: none;
+// 	outline-offset: 0.25rem;
+// 	outline-color: $color-fifthly;
+// 	position: absolute;
+// 	left: 200px;
+// }
+
+// /* Custom Select */
+// .Select-trigger {
+// 	background-color: #fff;
+// 	border: 0.125rem none $color-fifthly;
+// 	border-radius: 0.5px;
+// 	color: $color-fifthly;
+// 	display: inline-block;
+// 	overflow: hidden;
+// 	position: relative;
+// 	text-overflow: ellipsis;
+// 	white-space: nowrap;
+// 	width: 200px;
+// 	position: absolute;
+// 	left: 200px;
+// }
+
+// select,
+// [role="combobox"] {
+// 	background: #901c1c;
+// 	color: white;
+// 	border-radius: 5px;
+// 	cursor: pointer;
+// 	font-size: 1rem;
+// 	height: 3rem;
+// 	line-height: 3rem;
+// 	margin: 0;
+// 	padding: 0 0 0 0.5em;
+// 	width: 200px;
+// }
+
+// [role="combobox"] {
+// 	padding-right: 1.563rem;
+// 	width: 200px;
+// }
+
+// select[multiple] {
+// 	height: 10rem;
+// }
+
+// .Select-trigger:focus,
+// [role="listbox"]:focus {
+// 	@include new-outlined;
+// 	outline: none;
+// 	width: 200px;
+// }
+
+// [role="option"]:focus {
+// 	@include new-outlined;
+// }
+
+
+// /* Arrow */
+// [role="combobox"]::after {
+// 	content: "";
+// 	height: 10px;
+// 	pointer-events: none;
+// 	position: absolute;
+// 	right: 30px;
+// 	top: 5px;
+// 	width: 10px;
+// 	font-family: FontAwesome;
+// 	content: "\f107";
+// 	font-size: 30px;
+// 	color: $color-sixthly;
+// 	transition:   0.5s;
+// }
+// .arrowanim {
+// 	&[role="combobox"]::after {
+// 		transform: rotate(180deg);
+// 		right: 15px;
+// 		top: 35px;
+// 	}
+// }
+
+// [role="listbox"] {
+// 	background: $color-primary;
+// 	border: 2px none $color-fifthly;
+// 	border-radius: 0.25em;
+// 	color: $color-fifthly;
+// 	font-size: 1rem;
+// 	list-style-type: none;
+// 	margin: 0;
+// 	width: 200px;
+// 	max-height: 20rem;
+// 	overflow-y: auto;
+// 	padding: 0;
+// 	position: absolute;
+// 	left: 200px;
+// 	top: calc(100% + 5px);
+// 	z-index: 1;
+// }
+
+// [role="combobox"][aria-expanded="false"] + [role="listbox"] {
+// 	display: none;
+// }
+
+
+// ul{
+// 	li {
+// 		height: 3rem;
+// 		line-height: 3rem;
+// 		padding: 0 1rem 0 1.625rem;
+// 		margin: 0 1rem;
+// 		position: relative;
+// 		background: $color-primary;
+// 		color: $color-sixthly;
+// 		border-top-style: solid;
+// 		border-top-width: 1px;
+// 		border-color: $color-sixthly;
+// 		&:first-child{
+// 			border-top-style: none;
+// 		}
+// 	}
+// 	border-radius: 5px;
+// 	li:not([role="option"]) {
+// 		padding-left: 0.75rem;
+// 	}
+// }
+
+
+
+// [role="option"] {
+// 	cursor: pointer;
+// }
+
+// [role="option"]:focus,
+// [role="option"]:hover {
+// 		color: $color-sixthly;
+// 	@include new-outlined;
+// }
+
+// li[aria-selected="true"]::before {
+// 	content: "\2713";
+// 	left: 0.5rem;
+// 	line-height: 1rem;
+// 	position: absolute;
+// 	top: 50%;
+// 	transform: translateY(-50%);
+// }
+
+// .Select-isVisible {
+// 	overflow: hidden;
+// }
+// */

@@ -1,0 +1,19 @@
+{
+  "name": "eslint",
+  "version": "1.0.0",
+  "description": "test",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolas-derobert/-NicolasDerobert_6_08092021.git"
+  },
+  "author": "NIcolas DEROBERT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicolas-derobert/-NicolasDerobert_6_08092021/issues"
+  },
+  "homepage": "https://github.com/nicolas-derobert/-NicolasDerobert_6_08092021#readme"
+}

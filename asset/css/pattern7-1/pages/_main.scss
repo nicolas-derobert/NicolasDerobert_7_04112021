@@ -1,0 +1,60 @@
+//Global formating
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+html{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+body {
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	@include larger-generic {
+		width: 1400px;
+		margin: auto;
+	}
+}
+
+p {
+	margin-top: 0.4em;
+	margin-bottom: 0.4em;
+}
+h1 {
+	margin: auto;
+	padding-top: 1.5rem;
+	color: $color-primary;
+}
+
+.location {
+	color: $color-primary;
+	font-size: 1.3rem;
+	margin-top: 0.2rem;
+	margin-bottom: 0.2rem;
+}
+button,
+[role="button"],
+input {
+	cursor: pointer;
+	&:focus {
+		@include new-outlined;
+		&:focus-visible {
+			@include new-outlined;
+		}
+	}
+}
+a:focus {
+	@include new-outlined;
+}
+
+.categories {
+	font-size: 1.2rem;
+}
+.price {
+	color: $color-tertiary;
+	font-size: 0.8rem;
+}

@@ -1,0 +1,55 @@
+
+@mixin new-outlined {
+  outline: none;
+  border-width: 4px;
+  border-style: solid;
+  border-color: $color-fifthly;
+ 
+  img{
+    // background-color:$color-fifthly ;
+  }
+
+}
+@mixin new-over {
+    outline: none;
+  border-width: 4px;
+  border-style: solid;
+  border-color: $color-secondary;
+}
+
+// Media Querries
+@mixin mobile-column-positionning {
+    @media screen and (max-width: $breakpoint-mobile) {
+        grid-template-columns: 1fr;
+    }
+  }
+  
+  @mixin desktop-column-positionning {
+    @media screen and (max-width: $breakpoint-desktop) {
+        grid-template-columns: 1fr 1fr;
+    }
+  }
+  @mixin large-generic {
+    @media screen and (max-width: $breakpoint-large) {
+      @content;
+    }
+  }
+  @mixin larger-generic {
+    @media screen and (min-width: $breakpoint-larger) {
+      @content;
+    }
+  }
+  
+  @mixin desktop-generic {
+    @media screen and (max-width: $breakpoint-desktop) {
+      @content;
+    }
+  }
+  @mixin mobile-generic {
+    @media screen and (max-width: $breakpoint-mobile) {
+      @content;
+    }
+  }
+
+
+  

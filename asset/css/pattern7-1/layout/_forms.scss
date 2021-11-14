@@ -1,0 +1,65 @@
+.input-group {
+	.form-control {
+		background-color: $color-seventhly;
+		border-style: none;
+		border-radius: 5px 0px 0px 5px;
+		font-size: 1.8rem;
+	}
+	.input-group-append {
+		.input-group-text {
+			background-color: $color-seventhly;
+			border-style: none;
+			border-radius: 0px 5px 5px 0px;
+			font-size: 1.8rem;
+		}
+	}
+}
+#search-resume {
+    margin-top: 2vh;;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+	span {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: flex-start;
+		font-size: 1.8rem;
+		&#search-resume-ingredients {
+			li {
+				background-color: $color-secondary;
+			}
+		}
+		&#search-resume-appareil {
+			li {
+				background-color: $color-tertiary;
+			}
+		}
+
+		&#search-resume-ustensiles {
+			li {
+				background-color: $color-fourthly;
+			}
+		}
+		li {
+            position: relative;
+			margin: 0 0.5vw;
+			width: auto;
+			border-radius: 5px;
+			list-style-type: none;
+			color: $color-sixthly;
+			padding: 1vh 3vw 1vh 2vw;
+			&::after {
+				position: absolute;
+				right: 1vw;
+				font-family: FontAwesome;
+				font-weight: 400;
+				content: "\f05c";
+                color: $color-sixthly;
+			}
+		}
+	}
+}
+// <div id="search-resume">
+// 					<span id="search-resume-ingredients"><li></li></span>
+// 					<span id="search-resume-appareil"></span>
+// 					<span id="search-resume-ustensiles"></span>

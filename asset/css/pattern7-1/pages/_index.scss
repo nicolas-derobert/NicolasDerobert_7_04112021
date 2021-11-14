@@ -1,0 +1,11 @@
+ 
+#results{
+// background-color: white;
+  // border-color: #989eaa;
+  display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ column-gap: 5vw;
+ row-gap: 5vh;
+  // width: 90vw;
+  padding: 2vh 2vw;
+}

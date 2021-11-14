@@ -1,0 +1,210 @@
+@media (prefers-reduced-motion: reduce) {
+	.accordion-button {
+		transition: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.accordion-button::after {
+		transition: none;
+	}
+}
+
+.accordion {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+// ACCORDEON ITEM
+.accordion-item {
+	background-color: #fff;
+	// border: 1px solid rgba(0, 0, 0, 0.125);
+	margin: 2vw;
+	ul {
+		columns: 3;
+	}
+	.accordion-header {
+		margin-bottom: 0;
+
+        position: relative;
+        .accordion-button {
+			position: relative;
+			display: flex;
+			align-items: center;
+			width: 100%;
+			font-size: 1.8rem;
+			text-align: left;
+			border: none;
+			border-radius: 5px;
+			overflow-anchor: none;
+			transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+				border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+				border-radius 0.15s ease;
+
+			span {
+				color: $color-sixthly;
+			}
+			&#menu-ingredients {
+				background-color: $color-secondary;
+			}
+			&#menu-appareil {
+				background-color: $color-tertiary;
+			}
+			&#menu-ustensiles {
+				background-color: $color-fourthly;
+			}
+			// #input-ingredients {
+			// 	display: none;
+			// 	// pointer-events: none;
+			// 	&.show {
+			// 		display: block;
+			// 	}
+			// }
+			// #title-ingredients {
+			// 	display: none;
+			// 	pointer-events: none;
+			// 	&.show {
+			// 		display: block;
+			// 	}
+			// }
+            input {
+                height: 100%;
+                width: 100%;
+                padding: 2vh 2vw 2vh 1vw;
+				display: none;
+                background-color: transparent;
+                border: none;
+                color:$color-sixthly ;
+                opacity: 100%;
+				// pointer-events: none;
+                &::placeholder{
+                color:$color-sixthly ;
+                opacity: 50%;
+                }
+				&.show {
+					display: block;
+				}
+			}
+			span {
+				display: none;
+				pointer-events: none;
+                padding: 2vh 3vw 2vh 1vw;
+				&.show {
+					display: block;
+				}
+			}
+		}
+		.accordion-button:hover {
+			z-index: 2;
+		}
+		.accordion-button:focus {
+			z-index: 3;
+			// border-color: #86b7fe;
+			outline: 0;
+			// box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            border-radius: 5px 5px 0px 0px;
+		}
+		.accordion-button:not(.collapsed) {
+			color: #0c63e4;
+			background-color: #e7f1ff;
+			box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+            // border-radius: 5px 5px 0px 0px;
+		}
+		.accordion-button:not(.collapsed)::after {
+			transform: rotate(-180deg);
+            color: $color-sixthly;
+            // position: absolute;
+            // right: 1vw;
+            // top:50%;
+            // transform: translate(-50%, -50%);
+		}
+		.accordion-button::after {
+            position: absolute;
+            right: 1vw;
+            top:40%;
+            transform: translate(-50%, -50%);
+			flex-shrink: 0;
+			width: 2rem;
+			// height: 1.25rem;
+			margin-left: 1rem;
+            font-family: FontAwesome;
+            font-weight: 200;
+            content: "\f078";
+			background-size: 1.25rem;
+            // height: 100%;
+            // background-color: $color-sixthly;
+			transition: transform 0.2s ease-in-out;
+            filter: $color-sixthly;
+            color: $color-sixthly;
+
+		}
+	}
+	// &:first-of-type {
+	// 	border-top-left-radius: 0.25rem;
+	// 	border-top-right-radius: 0.25rem;
+	// }
+	// &:first-of-type .accordion-button {
+	// 	border-top-left-radius: calc(0.25rem - 1px);
+	// 	border-top-right-radius: calc(0.25rem - 1px);
+	// }
+	&:not(:first-of-type) {
+		border-top: 0;
+	}
+	&:last-of-type {
+		border-bottom-right-radius: 0.25rem;
+		border-bottom-left-radius: 0.25rem;
+		.accordion-button.collapsed {
+			border-bottom-right-radius: calc(0.25rem - 1px);
+			border-bottom-left-radius: calc(0.25rem - 1px);
+		}
+		.accordion-collapse {
+			border-bottom-right-radius: 0.25rem;
+			border-bottom-left-radius: 0.25rem;
+		}
+	}
+}
+
+.accordion-body {
+	padding: 1rem 1.25rem;
+    min-height: 5rem;
+    font-size: 1.8rem;
+    border-radius: 0px 0px 5px 5px;
+    color: $color-sixthly;
+
+    li{
+        list-style-type: none;
+    }
+    &.ingredients{
+        background-color: $color-secondary;
+}
+    &.appareil {
+        background-color: $color-tertiary;
+    }
+    &.ustensiles {
+        background-color: $color-fourthly;
+    }
+}
+
+.accordion-flush .accordion-collapse {
+	border-width: 0;
+}
+.accordion-flush .accordion-item {
+	border-right: 0;
+	border-left: 0;
+	border-radius: 0;
+}
+.accordion-flush .accordion-item:first-child {
+	border-top: 0;
+}
+.accordion-flush .accordion-item:last-child {
+	border-bottom: 0;
+}
+.accordion-flush .accordion-item .accordion-button {
+	border-radius: 0;
+}
+
+.show {
+	display: block;
+}
