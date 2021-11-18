@@ -11,6 +11,8 @@
 }
 
 .accordion {
+	position: absolute;
+	z-index: 10;
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: flex-start;
@@ -34,6 +36,7 @@
 			display: flex;
 			align-items: center;
 			width: 100%;
+			height: 6vh;
 			font-size: 1.8rem;
 			text-align: left;
 			border: none;
@@ -55,24 +58,11 @@
 			&#menu-ustensiles {
 				background-color: $color-fourthly;
 			}
-			// #input-ingredients {
-			// 	display: none;
-			// 	// pointer-events: none;
-			// 	&.show {
-			// 		display: block;
-			// 	}
-			// }
-			// #title-ingredients {
-			// 	display: none;
-			// 	pointer-events: none;
-			// 	&.show {
-			// 		display: block;
-			// 	}
-			// }
             input {
                 height: 100%;
-                width: 100%;
-                padding: 2vh 2vw 2vh 1vw;
+                width: 60%;
+				height: 4vh;
+                padding: auto 2vw auto 1vw;
 				display: none;
                 background-color: transparent;
                 border: none;
@@ -113,6 +103,11 @@
             // border-radius: 5px 5px 0px 0px;
 		}
 		.accordion-button:not(.collapsed)::after {
+			// position: absolute;
+            // right: 0.6vw;
+			position: absolute;
+            right: 10px;
+			top:20px;
 			transform: rotate(-180deg);
             color: $color-sixthly;
             // position: absolute;
@@ -122,8 +117,8 @@
 		}
 		.accordion-button::after {
             position: absolute;
-            right: 1vw;
-            top:40%;
+            right: 0px;
+            top:30px;
             transform: translate(-50%, -50%);
 			flex-shrink: 0;
 			width: 2rem;

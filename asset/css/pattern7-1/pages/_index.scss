@@ -3,6 +3,8 @@
 // background-color: white;
   // border-color: #989eaa;
   display: grid;
+  position: relative;
+  top :100px;
  grid-template-columns: repeat(3, 1fr);
  column-gap: 5vw;
  row-gap: 5vh;

@@ -414,6 +414,8 @@ a {
 }
 
 .accordion {
+  position: absolute;
+  z-index: 10;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -453,6 +455,7 @@ a {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
+  height: 6vh;
   font-size: 1.8rem;
   text-align: left;
   border: none;
@@ -482,8 +485,9 @@ a {
 
 .accordion-item .accordion-header .accordion-button input {
   height: 100%;
-  width: 100%;
-  padding: 2vh 2vw 2vh 1vw;
+  width: 60%;
+  height: 4vh;
+  padding: auto 2vw auto 1vw;
   display: none;
   background-color: transparent;
   border: none;
@@ -543,6 +547,9 @@ a {
 }
 
 .accordion-item .accordion-header .accordion-button:not(.collapsed)::after {
+  position: absolute;
+  right: 10px;
+  top: 20px;
   -webkit-transform: rotate(-180deg);
           transform: rotate(-180deg);
   color: #FFFFFF;
@@ -550,8 +557,8 @@ a {
 
 .accordion-item .accordion-header .accordion-button::after {
   position: absolute;
-  right: 1vw;
-  top: 40%;
+  right: 0px;
+  top: 30px;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   -ms-flex-negative: 0;
@@ -800,6 +807,8 @@ a:focus {
 #results {
   display: -ms-grid;
   display: grid;
+  position: relative;
+  top: 100px;
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
   -webkit-column-gap: 5vw;

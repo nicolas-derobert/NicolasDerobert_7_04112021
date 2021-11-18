@@ -20,7 +20,6 @@ const titleUstensil = document.getElementById("title-ustensiles");
 const results = document.getElementById("results");
 const searchResume = document.getElementById("search-resume");
 
-
 const menuElemList = document.querySelectorAll("#search-resume ul li");
 const mainSearchInput = document.getElementById("main-search-input");
 
@@ -68,6 +67,11 @@ let idOfPage;
 
 var listButton = document.getElementsByClassName("accordion-button");
 
+function capitalizeFirstLetter(string) {
+	string.toLowerCase();
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 const getIngredients = function (params) {
 	let newtab = [];
 	for (let i = 0; i < params.length; i++) {
@@ -95,167 +99,8 @@ const getUstensiles = function (params) {
 	let uniq = [...new Set(newtab)]; // apply filter on table
 	return uniq;
 };
-
-function AddNewTagsInSelectedTagsBar(filterToApply, typeOf){
-	//Populate appropriate array of all selected element 
-	if (typeOf === typeIngredients) {
-		listOfSelectedTagIngredient.unshift(filterToApply);
-	}
-	if (typeOf === typeAppareil) {
-		listOfSelectedTagAppliance.unshift(filterToApply);
-	}
-	if (typeOf === typeUstensiles) {
-		listOfSelectedTagUstensil.unshift(filterToApply);
-	}
-	// Place information on resume bar
-	searchResumeIngredients.innerHTML = `${listOfSelectedTagIngredient
-		.map(updateResumeList)
-		.join("")}`;
-	searchResumeAppareil.innerHTML = `${listOfSelectedTagAppliance
-		.map(updateResumeList)
-		.join("")}`;
-	searchResumeUstensiles.innerHTML = `${listOfSelectedTagUstensil
-		.map(updateResumeList)
-		.join("")}`;
-	
-		applyEventListenerOnTagOnTagBar()
-
-}
-function applyEventListenerOnTagOnTagBar() {
-	const areaOfSelectedTagIngredient = document.querySelectorAll(
-		"#search-resume-ingredients li"
-	);
-	const areaOfSelectedTagAppliance = document.querySelectorAll(
-		"#search-resume-appareil li"
-	);
-	const areaOfSelectedTagUstensil = document.querySelectorAll(
-		"#search-resume-ustensiles li"
-	);
-		// Add eventListener relative to new items
-		areaOfSelectedTagIngredient.forEach((tag) => {
-			tag.addEventListener("click", () => {
-				console.log(tag);
-				console.log(tag.innerHTML);
-
-				let value = tag.innerHTML;
-				listOfSelectedTagIngredient = listOfSelectedTagIngredient.filter(
-					(item) => item !== value
-				);
-			});
-		});
-		areaOfSelectedTagAppliance.forEach((tag) => {
-			tag.addEventListener("click", () => {
-				let value = tag.innerHTML;
-				listOfSelectedTagAppliance = listOfSelectedTagAppliance.filter(
-					(item) => item !== value
-				);
-			});
-		});
-		areaOfSelectedTagUstensil.forEach((tag) => {
-			tag.addEventListener("click", () => {
-				let value = tag.innerHTML;
-				listOfSelectedTagUstensil = listOfSelectedTagUstensil.filter(
-					(item) => item !== value
-				);
-			});
-		});
-}
-
-function UpdateListOfRecipesComingFromTag() {
-	//Obtain list of recipes linked to selected Tag
-	ArrayOfRecipesFinalWithoutDoublon.forEach((recette) => {
-		listOfAvailableTagIngredient.forEach((ingredientOflist) => {
-			recette.ingredients.forEach((ingredients) => {
-				if (
-					ingredients.ingredient
-						.toLowerCase()
-						.includes(ingredientOflist.toLowerCase())
-				) {
-					ArrayOfRecipesComingFromTagIngredient.unshift(recette);
-				}
-			});
-		});
-		listOfAvailableTagAppliance.forEach((applianceOfList) => {
-			if (
-				recette.appliance.toLowerCase().includes(applianceOfList.toLowerCase())
-			) {
-				ArrayOfRecipesComingFromTagAppliance.unshift(recette);
-			}
-		});
-
-		listOfAvailableTagUstensil.forEach((ustensilOfList) => {
-			if (
-				recette.appliance.toLowerCase().includes(ustensilOfList.toLowerCase())
-			) {
-				ArrayOfRecipesComingFromTagUstensil.unshift(recette);
-			}
-		});
-	});
-	ArrayOfRecipesComingFromTagIngredientWithoutDoublon = [
-		...new Set(ArrayOfRecipesComingFromTagIngredient),
-	];
-	ArrayOfRecipesComingFromTagApplianceWithoutDoublon = [
-		...new Set(ArrayOfRecipesComingFromTagAppliance),
-	];
-	ArrayOfRecipesComingFromTagUstensilWithoutDoublon = [
-		...new Set(ArrayOfRecipesComingFromTagUstensil),
-	];
-	//Get the whole result from tags filter
-	let data = [
-		ArrayOfRecipesComingFromTagIngredientWithoutDoublon,
-		ArrayOfRecipesComingFromTagApplianceWithoutDoublon,
-		ArrayOfRecipesComingFromTagUstensilWithoutDoublon,
-	];
-	console.log(ArrayOfRecipesComingFromTagIngredient);
-	console.log(ArrayOfRecipesComingFromTagIngredientWithoutDoublon);
-	// console.log(ArrayOfRecipesComingFromTagsBarWithoutDoublon);
-
-	ArrayOfRecipesComingFromTagsBarWithoutDoublon = data.reduce((a, b) =>
-		a.filter((c) => b.includes(c))
-	);
-	console.log(ArrayOfRecipesComingFromTagsBarWithoutDoublon);
-}
-//Identify selected element and place it in resume bar
-const filterOnHashtag = function (e, filterToApply, typeOf) {
-	AddNewTagsInSelectedTagsBar(filterToApply, typeOf)
-	UpdateListOfRecipesComingFromTag() 
-	getGlobalResult();
-
-	// Update result with corresponding recipes
-	// listOfSelectedTagAppliance.forEach((appareilSelectionnee) => {
-	// 	recipes.forEach((recette) => {
-	// 		if (recette.appliance == appareilSelectionnee) {
-	// 			ArrayOfRecipesComingFromTagsBar.unshift(recette);
-	// 		}
-	// 	});
-	// });
-	// listOfSelectedTagIngredient.forEach((ingredientsSelectionnee) => {
-	// 	recipes.forEach((recette) => {
-	// 		recette.ingredients.forEach((ingredients) => {
-	// 			if (ingredients.ingredient == ingredientsSelectionnee) {
-	// 				ArrayOfRecipesComingFromTagsBar.unshift(recette);
-	// 			}
-	// 		});
-	// 	});
-	// });
-	// listOfSelectedTagUstensil.forEach((UstensilesSelectionnee) => {
-	// 	recipes.forEach((recette) => {
-	// 		recette.ustensils.forEach((Ustensiles) => {
-	// 			if (Ustensiles == UstensilesSelectionnee) {
-	// 				ArrayOfRecipesComingFromTagsBar.unshift(recette);
-	// 			}
-	// 		});
-	// 	});
-	// });
-
-	// console.log(ArrayOfRecipesComingFromTagsBar.ingredients);
-	//Tableau qui filtre mes tags
-	// console.log(ArrayOfRecipesComingFromTagsBar);
-	// ArrayOfRecipesComingFromTagsBarWithoutDoublon = [...new Set(ArrayOfRecipesComingFromTagsBar)]; // apply filter on table
-	// console.log(listOfSelectedTagAppliance);
-};
 function filterOnMainInput(ValueOfInput) {
-	console.log(ValueOfInput);
+	// console.log(ValueOfInput);
 	if (ValueOfInput.length > 2) {
 		recipes.forEach((recette) => {
 			if (recette.name.toLowerCase().includes(ValueOfInput.toLowerCase())) {
@@ -284,39 +129,210 @@ function filterOnMainInput(ValueOfInput) {
 		console.log(ArrayOfRecipesComingFromMainSearchBarWithoutDoublon);
 		getGlobalResult();
 		UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
-
-		// array3 = [...new Set([...array1, ...array2])];
-
-		// ArrayOfRecipesComingFromMainSearchBar = recipes.filter((description) =>
-		// description.toLowerCase().includes(ValueOfInput)
-		// );
+		applytagEventListener();
 	} else {
-		ArrayOfRecipesFinalWithoutDoublon = recipes;
+		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes;
 		UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
+		applytagEventListener();
 	}
-	// else {
-	// 	LocationOfListOfAppliance.innerHTML = `${listOfAvailableTagAppliance.map(updateList).join("")}`;
-	// 	applytagEventListener();
-	// }
 }
+
+function UpdateDisplayingOfTag() {
+	searchResumeIngredients.innerHTML = `${listOfSelectedTagIngredient
+		.map(updateResumeList)
+		.join("")}`;
+	searchResumeAppareil.innerHTML = `${listOfSelectedTagAppliance
+		.map(updateResumeList)
+		.join("")}`;
+	searchResumeUstensiles.innerHTML = `${listOfSelectedTagUstensil
+		.map(updateResumeList)
+		.join("")}`;
+}
+function applyEventListenerOnTagOnTagBar() {
+	const areaOfSelectedTagIngredient = document.querySelectorAll(
+		"#search-resume-ingredients li"
+	);
+	const areaOfSelectedTagAppliance = document.querySelectorAll(
+		"#search-resume-appareil li"
+	);
+	const areaOfSelectedTagUstensil = document.querySelectorAll(
+		"#search-resume-ustensiles li"
+	);
+	// Add eventListener relative to new items
+	areaOfSelectedTagIngredient.forEach((tag) => {
+		tag.addEventListener("click", () => {
+			let value = tag.innerHTML;
+			listOfSelectedTagIngredient = listOfSelectedTagIngredient.filter(
+				(item) => item !== value
+			);
+			UpdateDisplayingOfTag();
+			applyEventListenerOnTagOnTagBar();
+			UpdateListOfRecipesComingFromTag2();
+			getGlobalResult();
+		});
+	});
+	areaOfSelectedTagAppliance.forEach((tag) => {
+		tag.addEventListener("click", () => {
+			let value = tag.innerHTML;
+			listOfSelectedTagAppliance = listOfSelectedTagAppliance.filter(
+				(item) => item !== value
+			);
+			UpdateDisplayingOfTag();
+			applyEventListenerOnTagOnTagBar();
+			UpdateListOfRecipesComingFromTag2();
+			getGlobalResult();
+		});
+	});
+	areaOfSelectedTagUstensil.forEach((tag) => {
+		tag.addEventListener("click", () => {
+			let value = tag.innerHTML;
+			listOfSelectedTagUstensil = listOfSelectedTagUstensil.filter(
+				(item) => item !== value
+			);
+			UpdateDisplayingOfTag();
+			applyEventListenerOnTagOnTagBar();
+			UpdateListOfRecipesComingFromTag2();
+			getGlobalResult();
+		});
+	});
+}
+
+// console.log(intersectMany(arr1, arr2, arr3));
+
+//Identify selected element and place it in resume bar
+const filterOnHashtag = function (e, filterToApply, typeOf) {
+	AddNewTagsInSelectedTagsBar(filterToApply, typeOf);
+	UpdateListOfRecipesComingFromTag2();
+	getGlobalResult();
+};
+function AddNewTagsInSelectedTagsBar(filterToApply, typeOf) {
+	//Populate appropriate array of all selected element
+	let formatedFilterToApply = capitalizeFirstLetter(filterToApply);
+	if (typeOf === typeIngredients) {
+		listOfSelectedTagIngredient.indexOf(formatedFilterToApply) === -1
+			? listOfSelectedTagIngredient.push(formatedFilterToApply)
+			: "";
+	}
+	if (typeOf === typeAppareil) {
+		listOfSelectedTagAppliance.indexOf(formatedFilterToApply) === -1
+			? listOfSelectedTagAppliance.push(formatedFilterToApply)
+			: "";
+	}
+	if (typeOf === typeUstensiles) {
+		listOfSelectedTagUstensil.indexOf(formatedFilterToApply) === -1
+			? listOfSelectedTagUstensil.push(formatedFilterToApply)
+			: "";
+	}
+	// Place information on resume bar
+	UpdateDisplayingOfTag();
+
+	applyEventListenerOnTagOnTagBar();
+}
+function UpdateListOfRecipesComingFromTag2() {
+	ArrayOfRecipesComingFromTagsBarWithoutDoublon = filterOnTags4();
+}
+
+const filterOnTags4 = function () {
+	console.log(listOfSelectedTagAppliance);
+	console.log(listOfSelectedTagIngredient);
+	console.log(listOfSelectedTagUstensil);
+	let mytab = recipes.filter(function (el) {
+		//   return el.ingredients.some(e =>arrayingredient.some(element => e.ingredient == element))
+		console.log(
+			listOfSelectedTagAppliance.length > 0
+				? listOfSelectedTagAppliance.includes(el.appliance.toLowerCase())
+				: true
+		);
+
+		return (
+			(listOfSelectedTagUstensil.length > 0
+				? listOfSelectedTagUstensil.every((r) =>
+						el.ustensils.map((a) => a.toLowerCase()).includes(r.toLowerCase())
+				  )
+				: true) &&
+			(listOfSelectedTagIngredient.length > 0
+				? listOfSelectedTagIngredient.every((r) =>
+						el.ingredients
+							.flatMap((myIngredients) => myIngredients.ingredient)
+							.map((a) => a.toLowerCase())
+							.includes(r.toLowerCase())
+				  )
+				: true) &&
+			(listOfSelectedTagAppliance.length > 0
+				? listOfSelectedTagAppliance
+						.map((a) => a.toLowerCase())
+						.includes(el.appliance.toLowerCase())
+				: true)
+		);
+
+		///en ligne
+		//   return   (listOfSelectedTagUstensil.length > 0 ? listOfSelectedTagUstensil.every(r=> el.ustensils.map(a => a.toLowerCase()).includes(r.toLowerCase())) : true) &&
+		//   (listOfSelectedTagIngredient.length > 0 ? listOfSelectedTagIngredient.every(r=> el.ingredients.flatMap(myIngredients => myIngredients.ingredient).map(a => a.toLowerCase()).includes(r.toLowerCase())) : true) &&
+		//   (listOfSelectedTagAppliance.length > 0 ? listOfSelectedTagAppliance.map(a => a.toLowerCase()).includes(el.appliance.toLowerCase()) : true);
+		//Element de travail :
+		//   (listOfSelectedTagAppliance.length > 0 ? listOfSelectedTagAppliance.every(r=> el.ustensils.map(a => a.toLowerCase()).includes(r.toLowerCase())) : true)
+	});
+	console.log(mytab);
+
+	return mytab;
+};
+
 function getGlobalResult() {
-	ArrayOfRecipesFinalWithoutDoublon = [
-		...new Set([
-			...ArrayOfRecipesComingFromMainSearchBarWithoutDoublon,
-			...ArrayOfRecipesComingFromTagsBarWithoutDoublon,
-		]),
-	];
-	results.innerHTML = `${ArrayOfRecipesFinalWithoutDoublon.map(
-		updateResults
-	).join("")}`;
+	// ArrayOfRecipesFinalWithoutDoublon = [
+	// 	...new Set([
+	// 		...ArrayOfRecipesComingFromMainSearchBarWithoutDoublon,
+	// 		...ArrayOfRecipesComingFromTagsBarWithoutDoublon,
+	// 	]),
+	// ];
+	if (
+		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.length > 0 &&
+		ArrayOfRecipesComingFromTagsBarWithoutDoublon.length > 0
+	) {
+		ArrayOfRecipesFinalWithoutDoublon =
+			ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.filter((value) =>
+				ArrayOfRecipesComingFromTagsBarWithoutDoublon.includes(value)
+			);
+	}
+	if (
+		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.length == 0 &&
+		ArrayOfRecipesComingFromTagsBarWithoutDoublon.length > 0
+	) {
+		ArrayOfRecipesFinalWithoutDoublon =
+			ArrayOfRecipesComingFromTagsBarWithoutDoublon;
+	}
+	if (
+		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.length > 0 &&
+		ArrayOfRecipesComingFromTagsBarWithoutDoublon.length == 0
+	) {
+		ArrayOfRecipesFinalWithoutDoublon =
+		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon;
+	}
+	// else{
+	// 	ArrayOfRecipesFinalWithoutDoublon = ArrayOfRecipesComingFromTagsBarWithoutDoublon.filter(value => ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.includes(value));
+	// }
+	// ArrayOfRecipesFinalWithoutDoublon = [
+	// 	...new Set([
+	// 		...ArrayOfRecipesComingFromMainSearchBarWithoutDoublon,
+	// 		...ArrayOfRecipesComingFromTagsBarWithoutDoublon,
+	// 	]),
+	// ];
+	if (ArrayOfRecipesFinalWithoutDoublon.length == 0) {
+		results.innerHTML =
+			"Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.";
+	} else {
+		results.innerHTML = `${ArrayOfRecipesFinalWithoutDoublon.map(
+			updateResults
+		).join("")}`;
+	}
 }
+
 //Define remaining lists of filters
 function UpdateArraysOfIngredientsAndAppareilsAndUstensiles() {
 	listOfAvailableTagIngredient = getIngredients(
-		ArrayOfRecipesFinalWithoutDoublon
+		recipes
 	);
-	listOfAvailableTagAppliance = getAppareils(ArrayOfRecipesFinalWithoutDoublon);
-	listOfAvailableTagUstensil = getUstensiles(ArrayOfRecipesFinalWithoutDoublon);
+	listOfAvailableTagAppliance = getAppareils(recipes);
+	listOfAvailableTagUstensil = getUstensiles(recipes);
 	//Populate list in listsboxs
 	LocationOfListOfIngredient.innerHTML = `${listOfAvailableTagIngredient
 		.map(updateList)
@@ -332,7 +348,7 @@ function UpdateArraysOfIngredientsAndAppareilsAndUstensiles() {
 	//  console.log(listOfAvailableTagUstensil);
 }
 function updateList(data) {
-	return `<li>${data}</li>`;
+	return `<li>${capitalizeFirstLetter(data)}</li>`;
 }
 function updateResumeList(data) {
 	return `<li>${data}</li>`;
@@ -355,7 +371,7 @@ function updateResults(data) {
 		${data.ingredients.map(updateIngredients).join("")}
 		
 
-		</div>
+		</div>${data.appliance}
 		<div class="recipe-description-bloc overflow"><p class="recipe-description">${
 			data.description
 		}
@@ -372,6 +388,9 @@ function applytagEventListener() {
 			typeOfInput = typeIngredients;
 			console.log(val);
 			filterOnHashtag(e, val.innerHTML, typeOfInput);
+			AreaOfListOfIngredient.classList.toggle("show");
+			inputIngredient.classList.toggle("show");
+			titleIngredient.classList.toggle("show");
 		});
 	});
 	const tagAppareil = document.querySelectorAll(
@@ -381,6 +400,9 @@ function applytagEventListener() {
 		val.addEventListener("click", (e) => {
 			typeOfInput = typeAppareil;
 			filterOnHashtag(e, val.innerHTML, typeOfInput);
+			AreaOfListOfAppliance.classList.toggle("show");
+			inputAppliance.classList.toggle("show");
+			titleAppliance.classList.toggle("show");
 		});
 	});
 	const tagUstensiles = document.querySelectorAll(
@@ -390,25 +412,16 @@ function applytagEventListener() {
 		val.addEventListener("click", (e) => {
 			typeOfInput = typeUstensiles;
 			filterOnHashtag(e, val.innerHTML, typeOfInput);
+			AreaOfListOfUstensil.classList.toggle("show");
+			inputUstensil.classList.toggle("show");
+			titleUstensil.classList.toggle("show");
 		});
 	});
 }
-// accordion-collapse
-// if (this._triggerArray.length) {
-// 	this._triggerArray.forEach(element => {
-// 	  element.classList.remove(CLASS_NAME_COLLAPSED);
-// 	  element.setAttribute('aria-expanded', true);
-// 	});
-//   }
-
-// function deleteDoublon() {
-// 	let uniq = [...new Set(ArrayOfRecipesComingFromTagsBar)]; // apply filter on table
-// 	ArrayOfRecipesComingFromTagsBar.length = 0;
-// 	ArrayOfRecipesComingFromTagsBar = uniq;
-// }
 
 //DEBUT
-ArrayOfRecipesFinalWithoutDoublon = recipes;
+
+// ArrayOfRecipesFinalWithoutDoublon = recipes;
 console.log(ArrayOfRecipesFinalWithoutDoublon);
 UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
 // Appy eventListener on tags
@@ -432,19 +445,12 @@ for (let i = 0; i < listButton.length; i++) {
 			inputUstensil.classList.toggle("show");
 			titleUstensil.classList.toggle("show");
 		}
-		// console.log(el.target.id===menuUstensil[0].id)
-		// for (let i = 0; i < item.length; i++) {
-		//   if (item[i] !== el.currentTarget && item[i].className === "item collapsed") {
-		//     item[i].classList.remove('collapsed');
-		//   }
-		// }
 	});
 }
 
 inputIngredient.addEventListener("keyup", function (e) {
 	const term = e.target.value.toLowerCase();
 	console.log(term);
-	// if (term.length > 2) {
 	listOfFilteredTagIngredients = listOfAvailableTagIngredient.filter((s) =>
 		s.toLowerCase().includes(term)
 	);
@@ -452,17 +458,10 @@ inputIngredient.addEventListener("keyup", function (e) {
 		.map(updateList)
 		.join("")}`;
 	applytagEventListener();
-	// } else {
-	// 	LocationOfListOfIngredient.innerHTML = `${listOfAvailableTagIngredient
-	// 		.map(updateList)
-	// 		.join("")}`;
-	// 	applytagEventListener();
-	// }
 });
 inputAppliance.addEventListener("keyup", function (e) {
 	const term = e.target.value.toLowerCase();
 	console.log(term);
-	// if (term.length > 2) {
 	listOfFilteredTagAppliance = listOfAvailableTagAppliance.filter((s) =>
 		s.toLowerCase().includes(term)
 	);
@@ -470,10 +469,6 @@ inputAppliance.addEventListener("keyup", function (e) {
 		.map(updateList)
 		.join("")}`;
 	applytagEventListener();
-	// } else {
-	// 	LocationOfListOfAppliance.innerHTML = `${listOfAvailableTagAppliance.map(updateList).join("")}`;
-	// 	applytagEventListener();
-	// }
 });
 inputUstensil.addEventListener("keyup", function (e) {
 	const term = e.target.value.toLowerCase();
@@ -488,14 +483,8 @@ inputUstensil.addEventListener("keyup", function (e) {
 		.map(updateList)
 		.join("")}`;
 	applytagEventListener();
-	// } else {
-	// 	LocationOfListOfUstensil.innerHTML = `${listOfAvailableTagUstensil
-	// 		.map(updateList)
-	// 		.join("")}`;
-	// 	applytagEventListener();
-	// }
 });
-mainSearchInput.addEventListener("change", (e) => {
+mainSearchInput.addEventListener("keyup", (e) => {
 	let value = e.target.value;
 	filterOnMainInput(value);
 });
