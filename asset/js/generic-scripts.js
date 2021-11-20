@@ -89,44 +89,23 @@ const getUstensiles = function (params) {
 	let uniq = [...new Set(newtab)]; // apply filter on table
 	return uniq;
 };
-function filterByAddingElement(ValueOfInput) {
-	//Go through array of recipes
-	ArrayOfRecipesComingFromMainSearchBar.length = 0;
-
-	recipes.forEach((recette) => {
-		//Add recipes if input match name
-		if (recette.name.toLowerCase().includes(ValueOfInput.toLowerCase())) {
-			ArrayOfRecipesComingFromMainSearchBar.unshift(recette);
-		}
-		//Add recipes if input match one of ingredient
-		recette.ingredients.forEach((ingredients) => {
-			if (
-				ingredients.ingredient
-					.toLowerCase()
-					.includes(ValueOfInput.toLowerCase())
-			) {
-				ArrayOfRecipesComingFromMainSearchBar.unshift(recette);
-			}
-		});
-		//Add recipes if input match elements of description
-		if (
-			recette.description.toLowerCase().includes(ValueOfInput.toLowerCase())
-		) {
-			ArrayOfRecipesComingFromMainSearchBar.unshift(recette);
-		}
-	});
-
-	ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = [
-		...new Set(ArrayOfRecipesComingFromMainSearchBar),
-	]; // apply filter on table
-	console.log(ArrayOfRecipesComingFromMainSearchBarWithoutDoublon);
+function filterByFilteringElement(ValueOfInput) {
+	ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes.filter(
+		(recette) =>
+			recette.name.toLowerCase().includes(ValueOfInput.toLowerCase()) ||
+			recette.ingredients.some(
+				(ing) =>
+					ing.ingredient.toLowerCase().includes(ValueOfInput.toLowerCase()) ||
+					recette.description.toLowerCase().includes(ValueOfInput.toLowerCase())
+			)
+	);
 }
+
 
 function filterOnMainInput(ValueOfInput) {
 	// console.log(ValueOfInput);
 	if (ValueOfInput.length > 2) {
-		filterByAddingElement(ValueOfInput);
-		// filterByFilteringElement(ValueOfInput);
+		filterByFilteringElement(ValueOfInput);
 		getGlobalResult();
 	} else {
 		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes;
