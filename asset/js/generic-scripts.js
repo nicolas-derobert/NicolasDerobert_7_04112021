@@ -11,6 +11,7 @@ const LocationOfListOfAppliance = document.getElementById("menu-list-appareil");
 const LocationOfListOfUstensil = document.getElementById(
 	"menu-list-ustensiles"
 );
+const listButton = document.getElementsByClassName("accordion-button");
 const inputIngredient = document.getElementById("input-ingredients");
 const inputAppliance = document.getElementById("input-appareil");
 const inputUstensil = document.getElementById("input-ustensiles");
@@ -41,14 +42,7 @@ let typeOfInput;
 let ArrayOfRecipesComingFromMainSearchBar = [];
 let ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = [];
 let ArrayOfRecipesComingFromTagsBar = [];
-let ArrayOfRecipesComingFromTagIngredient = [];
-let ArrayOfRecipesComingFromTagIngredientWithoutDoublon = [];
-let ArrayOfRecipesComingFromTagAppliance = [];
-let ArrayOfRecipesComingFromTagApplianceWithoutDoublon = [];
-let ArrayOfRecipesComingFromTagUstensil = [];
-let ArrayOfRecipesComingFromTagUstensilWithoutDoublon = [];
 let ArrayOfRecipesComingFromTagsBarWithoutDoublon = [];
-let ArrayOfRecipesFinal = [];
 let ArrayOfRecipesFinalWithoutDoublon = [];
 
 let listOfSelectedTagIngredient = [];
@@ -62,10 +56,6 @@ let listOfAvailableTagUstensil = [];
 let listOfFilteredTagIngredients = [];
 let listOfFilteredTagAppliance = [];
 let listOfFilteredTagUstensil = [];
-
-let idOfPage;
-
-var listButton = document.getElementsByClassName("accordion-button");
 
 function capitalizeFirstLetter(string) {
 	string.toLowerCase();
@@ -99,42 +89,51 @@ const getUstensiles = function (params) {
 	let uniq = [...new Set(newtab)]; // apply filter on table
 	return uniq;
 };
-function filterOnMainInput(ValueOfInput) {
-	// console.log(ValueOfInput);
-	if (ValueOfInput.length > 2) {
-		recipes.forEach((recette) => {
-			if (recette.name.toLowerCase().includes(ValueOfInput.toLowerCase())) {
-				ArrayOfRecipesComingFromMainSearchBar.unshift(recette);
-			}
-			console.log(recette.ingredients);
-			recette.ingredients.forEach((ingredients) => {
-				if (
-					ingredients.ingredient
-						.toLowerCase()
-						.includes(ValueOfInput.toLowerCase())
-				) {
-					ArrayOfRecipesComingFromMainSearchBar.unshift(recette);
-				}
-			});
+function filterByAddingElement(ValueOfInput) {
+	//Go through array of recipes
+	ArrayOfRecipesComingFromMainSearchBar.length = 0;
+
+	recipes.forEach((recette) => {
+		//Add recipes if input match name
+		if (recette.name.toLowerCase().includes(ValueOfInput.toLowerCase())) {
+			ArrayOfRecipesComingFromMainSearchBar.unshift(recette);
+		}
+		//Add recipes if input match one of ingredient
+		recette.ingredients.forEach((ingredients) => {
 			if (
-				recette.description.toLowerCase().includes(ValueOfInput.toLowerCase())
+				ingredients.ingredient
+					.toLowerCase()
+					.includes(ValueOfInput.toLowerCase())
 			) {
 				ArrayOfRecipesComingFromMainSearchBar.unshift(recette);
 			}
 		});
+		//Add recipes if input match elements of description
+		if (
+			recette.description.toLowerCase().includes(ValueOfInput.toLowerCase())
+		) {
+			ArrayOfRecipesComingFromMainSearchBar.unshift(recette);
+		}
+	});
 
-		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = [
-			...new Set(ArrayOfRecipesComingFromMainSearchBar),
-		]; // apply filter on table
-		console.log(ArrayOfRecipesComingFromMainSearchBarWithoutDoublon);
+	ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = [
+		...new Set(ArrayOfRecipesComingFromMainSearchBar),
+	]; // apply filter on table
+	console.log(ArrayOfRecipesComingFromMainSearchBarWithoutDoublon);
+}
+
+function filterOnMainInput(ValueOfInput) {
+	// console.log(ValueOfInput);
+	if (ValueOfInput.length > 2) {
+		filterByAddingElement(ValueOfInput);
+		// filterByFilteringElement(ValueOfInput);
 		getGlobalResult();
-		UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
-		applytagEventListener();
 	} else {
 		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes;
-		UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
-		applytagEventListener();
+		getGlobalResult();
 	}
+	UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
+	applytagEventListener();
 }
 
 function UpdateDisplayingOfTag() {
@@ -148,237 +147,7 @@ function UpdateDisplayingOfTag() {
 		.map(updateResumeList)
 		.join("")}`;
 }
-function applyEventListenerOnTagOnTagBar() {
-	const areaOfSelectedTagIngredient = document.querySelectorAll(
-		"#search-resume-ingredients li"
-	);
-	const areaOfSelectedTagAppliance = document.querySelectorAll(
-		"#search-resume-appareil li"
-	);
-	const areaOfSelectedTagUstensil = document.querySelectorAll(
-		"#search-resume-ustensiles li"
-	);
-	// Add eventListener relative to new items
-	areaOfSelectedTagIngredient.forEach((tag) => {
-		tag.addEventListener("click", () => {
-			let value = tag.innerHTML;
-			listOfSelectedTagIngredient = listOfSelectedTagIngredient.filter(
-				(item) => item !== value
-			);
-			UpdateDisplayingOfTag();
-			applyEventListenerOnTagOnTagBar();
-			UpdateListOfRecipesComingFromTag2();
-			getGlobalResult();
-		});
-	});
-	areaOfSelectedTagAppliance.forEach((tag) => {
-		tag.addEventListener("click", () => {
-			let value = tag.innerHTML;
-			listOfSelectedTagAppliance = listOfSelectedTagAppliance.filter(
-				(item) => item !== value
-			);
-			UpdateDisplayingOfTag();
-			applyEventListenerOnTagOnTagBar();
-			UpdateListOfRecipesComingFromTag2();
-			getGlobalResult();
-		});
-	});
-	areaOfSelectedTagUstensil.forEach((tag) => {
-		tag.addEventListener("click", () => {
-			let value = tag.innerHTML;
-			listOfSelectedTagUstensil = listOfSelectedTagUstensil.filter(
-				(item) => item !== value
-			);
-			UpdateDisplayingOfTag();
-			applyEventListenerOnTagOnTagBar();
-			UpdateListOfRecipesComingFromTag2();
-			getGlobalResult();
-		});
-	});
-}
 
-// console.log(intersectMany(arr1, arr2, arr3));
-
-//Identify selected element and place it in resume bar
-const filterOnHashtag = function (e, filterToApply, typeOf) {
-	AddNewTagsInSelectedTagsBar(filterToApply, typeOf);
-	UpdateListOfRecipesComingFromTag2();
-	getGlobalResult();
-};
-function AddNewTagsInSelectedTagsBar(filterToApply, typeOf) {
-	//Populate appropriate array of all selected element
-	let formatedFilterToApply = capitalizeFirstLetter(filterToApply);
-	if (typeOf === typeIngredients) {
-		listOfSelectedTagIngredient.indexOf(formatedFilterToApply) === -1
-			? listOfSelectedTagIngredient.push(formatedFilterToApply)
-			: "";
-	}
-	if (typeOf === typeAppareil) {
-		listOfSelectedTagAppliance.indexOf(formatedFilterToApply) === -1
-			? listOfSelectedTagAppliance.push(formatedFilterToApply)
-			: "";
-	}
-	if (typeOf === typeUstensiles) {
-		listOfSelectedTagUstensil.indexOf(formatedFilterToApply) === -1
-			? listOfSelectedTagUstensil.push(formatedFilterToApply)
-			: "";
-	}
-	// Place information on resume bar
-	UpdateDisplayingOfTag();
-
-	applyEventListenerOnTagOnTagBar();
-}
-function UpdateListOfRecipesComingFromTag2() {
-	ArrayOfRecipesComingFromTagsBarWithoutDoublon = filterOnTags4();
-}
-
-const filterOnTags4 = function () {
-	console.log(listOfSelectedTagAppliance);
-	console.log(listOfSelectedTagIngredient);
-	console.log(listOfSelectedTagUstensil);
-	let mytab = recipes.filter(function (el) {
-		//   return el.ingredients.some(e =>arrayingredient.some(element => e.ingredient == element))
-		console.log(
-			listOfSelectedTagAppliance.length > 0
-				? listOfSelectedTagAppliance.includes(el.appliance.toLowerCase())
-				: true
-		);
-
-		return (
-			(listOfSelectedTagUstensil.length > 0
-				? listOfSelectedTagUstensil.every((r) =>
-						el.ustensils.map((a) => a.toLowerCase()).includes(r.toLowerCase())
-				  )
-				: true) &&
-			(listOfSelectedTagIngredient.length > 0
-				? listOfSelectedTagIngredient.every((r) =>
-						el.ingredients
-							.flatMap((myIngredients) => myIngredients.ingredient)
-							.map((a) => a.toLowerCase())
-							.includes(r.toLowerCase())
-				  )
-				: true) &&
-			(listOfSelectedTagAppliance.length > 0
-				? listOfSelectedTagAppliance
-						.map((a) => a.toLowerCase())
-						.includes(el.appliance.toLowerCase())
-				: true)
-		);
-
-		///en ligne
-		//   return   (listOfSelectedTagUstensil.length > 0 ? listOfSelectedTagUstensil.every(r=> el.ustensils.map(a => a.toLowerCase()).includes(r.toLowerCase())) : true) &&
-		//   (listOfSelectedTagIngredient.length > 0 ? listOfSelectedTagIngredient.every(r=> el.ingredients.flatMap(myIngredients => myIngredients.ingredient).map(a => a.toLowerCase()).includes(r.toLowerCase())) : true) &&
-		//   (listOfSelectedTagAppliance.length > 0 ? listOfSelectedTagAppliance.map(a => a.toLowerCase()).includes(el.appliance.toLowerCase()) : true);
-		//Element de travail :
-		//   (listOfSelectedTagAppliance.length > 0 ? listOfSelectedTagAppliance.every(r=> el.ustensils.map(a => a.toLowerCase()).includes(r.toLowerCase())) : true)
-	});
-	console.log(mytab);
-
-	return mytab;
-};
-
-function getGlobalResult() {
-	// ArrayOfRecipesFinalWithoutDoublon = [
-	// 	...new Set([
-	// 		...ArrayOfRecipesComingFromMainSearchBarWithoutDoublon,
-	// 		...ArrayOfRecipesComingFromTagsBarWithoutDoublon,
-	// 	]),
-	// ];
-	if (
-		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.length > 0 &&
-		ArrayOfRecipesComingFromTagsBarWithoutDoublon.length > 0
-	) {
-		ArrayOfRecipesFinalWithoutDoublon =
-			ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.filter((value) =>
-				ArrayOfRecipesComingFromTagsBarWithoutDoublon.includes(value)
-			);
-	}
-	if (
-		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.length == 0 &&
-		ArrayOfRecipesComingFromTagsBarWithoutDoublon.length > 0
-	) {
-		ArrayOfRecipesFinalWithoutDoublon =
-			ArrayOfRecipesComingFromTagsBarWithoutDoublon;
-	}
-	if (
-		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.length > 0 &&
-		ArrayOfRecipesComingFromTagsBarWithoutDoublon.length == 0
-	) {
-		ArrayOfRecipesFinalWithoutDoublon =
-		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon;
-	}
-	// else{
-	// 	ArrayOfRecipesFinalWithoutDoublon = ArrayOfRecipesComingFromTagsBarWithoutDoublon.filter(value => ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.includes(value));
-	// }
-	// ArrayOfRecipesFinalWithoutDoublon = [
-	// 	...new Set([
-	// 		...ArrayOfRecipesComingFromMainSearchBarWithoutDoublon,
-	// 		...ArrayOfRecipesComingFromTagsBarWithoutDoublon,
-	// 	]),
-	// ];
-	if (ArrayOfRecipesFinalWithoutDoublon.length == 0) {
-		results.innerHTML =
-			"Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.";
-	} else {
-		results.innerHTML = `${ArrayOfRecipesFinalWithoutDoublon.map(
-			updateResults
-		).join("")}`;
-	}
-}
-
-//Define remaining lists of filters
-function UpdateArraysOfIngredientsAndAppareilsAndUstensiles() {
-	listOfAvailableTagIngredient = getIngredients(
-		recipes
-	);
-	listOfAvailableTagAppliance = getAppareils(recipes);
-	listOfAvailableTagUstensil = getUstensiles(recipes);
-	//Populate list in listsboxs
-	LocationOfListOfIngredient.innerHTML = `${listOfAvailableTagIngredient
-		.map(updateList)
-		.join("")}`;
-	LocationOfListOfAppliance.innerHTML = `${listOfAvailableTagAppliance
-		.map(updateList)
-		.join("")}`;
-	LocationOfListOfUstensil.innerHTML = `${listOfAvailableTagUstensil
-		.map(updateList)
-		.join("")}`;
-	//  console.log(listOfAvailableTagIngredient);
-	//  console.log(listOfAvailableTagAppliance);
-	//  console.log(listOfAvailableTagUstensil);
-}
-function updateList(data) {
-	return `<li>${capitalizeFirstLetter(data)}</li>`;
-}
-function updateResumeList(data) {
-	return `<li>${data}</li>`;
-}
-function updateIngredients(data) {
-	return `<p class="ingredient">
-	<span class="ingredient-name">${data.ingredient}</span>
-	<span class="ingredient-quantity">${data.quantity ? data.quantity : ""}</span>
-	<span class="ingredient-unit">${data.unit ? data.unit : ""}</span>
-</p>`;
-}
-function updateResults(data) {
-	return `<div class="recipe card">
-	<img src="..." class="card-img-top" alt="..." />
-	<div class="text-container">
-		<h2 class="">${data.name}</h2>
-		<p class="recipe-time">${data.time} min</p>
-
-		<div class="recipe-ingredients">
-		${data.ingredients.map(updateIngredients).join("")}
-		
-
-		</div>${data.appliance}
-		<div class="recipe-description-bloc overflow"><p class="recipe-description">${
-			data.description
-		}
-		</p></div>
-	</div>
-</div>`;
-}
 function applytagEventListener() {
 	const tagIngredients = document.querySelectorAll(
 		"#area-list-ingredients .accordion-body li"
@@ -419,7 +188,194 @@ function applytagEventListener() {
 	});
 }
 
-//DEBUT
+function applyEventListenerOnTagOnTagBar() {
+	const areaOfSelectedTagIngredient = document.querySelectorAll(
+		"#search-resume-ingredients li"
+	);
+	const areaOfSelectedTagAppliance = document.querySelectorAll(
+		"#search-resume-appareil li"
+	);
+	const areaOfSelectedTagUstensil = document.querySelectorAll(
+		"#search-resume-ustensiles li"
+	);
+	// Add eventListener relative to new items
+	areaOfSelectedTagIngredient.forEach((tag) => {
+		let value = tag.innerHTML;
+		tag.addEventListener("click", () => {
+			listOfSelectedTagIngredient = listOfSelectedTagIngredient.filter(
+				(item) => item !== value
+			);
+			updateTagsSearch()
+		});
+	});
+	areaOfSelectedTagAppliance.forEach((tag) => {
+		let value = tag.innerHTML;
+		tag.addEventListener("click", () => {
+			listOfSelectedTagAppliance = listOfSelectedTagAppliance.filter(
+				(item) => item !== value
+			);
+			updateTagsSearch()
+		});
+	});
+	areaOfSelectedTagUstensil.forEach((tag) => {
+		let value = tag.innerHTML;
+		tag.addEventListener("click", () => {
+			listOfSelectedTagUstensil = listOfSelectedTagUstensil.filter(
+				(item) => item !== value
+			);
+			updateTagsSearch()
+		});
+	});
+}
+
+function updateTagsSearch() {
+	UpdateDisplayingOfTag();
+	applyEventListenerOnTagOnTagBar();
+	UpdateListOfRecipesComingFromTag();
+	getGlobalResult();
+}
+
+//Identify selected element and place it in resume bar
+function filterOnHashtag (e, filterToApply, typeOf) {
+	AddNewTagsInSelectedTagsBar(filterToApply, typeOf);
+	UpdateListOfRecipesComingFromTag();
+	getGlobalResult();
+};
+function AddNewTagsInSelectedTagsBar(filterToApply, typeOf) {
+	//Populate appropriate array of all selected element
+	let formatedFilterToApply = capitalizeFirstLetter(filterToApply);
+	if (typeOf === typeIngredients) {
+		listOfSelectedTagIngredient.indexOf(formatedFilterToApply) === -1
+			? listOfSelectedTagIngredient.push(formatedFilterToApply)
+			: "";
+	}
+	if (typeOf === typeAppareil) {
+		listOfSelectedTagAppliance.indexOf(formatedFilterToApply) === -1
+			? listOfSelectedTagAppliance.push(formatedFilterToApply)
+			: "";
+	}
+	if (typeOf === typeUstensiles) {
+		listOfSelectedTagUstensil.indexOf(formatedFilterToApply) === -1
+			? listOfSelectedTagUstensil.push(formatedFilterToApply)
+			: "";
+	}
+	// Place information on resume bar
+	UpdateDisplayingOfTag();
+
+	applyEventListenerOnTagOnTagBar();
+}
+function UpdateListOfRecipesComingFromTag() {
+	console.log(listOfSelectedTagAppliance);
+	console.log(listOfSelectedTagIngredient);
+	console.log(listOfSelectedTagUstensil);
+	ArrayOfRecipesComingFromTagsBarWithoutDoublon = recipes.filter(function (el) {
+		return (
+			(listOfSelectedTagUstensil.length > 0
+				? listOfSelectedTagUstensil.every((r) =>
+						el.ustensils.map((a) => a.toLowerCase()).includes(r.toLowerCase())
+				  )
+				: true) &&
+			(listOfSelectedTagIngredient.length > 0
+				? listOfSelectedTagIngredient.every((r) =>
+						el.ingredients
+							.flatMap((myIngredients) => myIngredients.ingredient)
+							.map((a) => a.toLowerCase())
+							.includes(r.toLowerCase())
+				  )
+				: true) &&
+			(listOfSelectedTagAppliance.length > 0
+				? listOfSelectedTagAppliance
+						.map((a) => a.toLowerCase())
+						.includes(el.appliance.toLowerCase())
+				: true)
+		);
+	});
+}
+
+function getGlobalResult() {
+	if (
+		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.length > 0 &&
+		ArrayOfRecipesComingFromTagsBarWithoutDoublon.length > 0
+	) {
+		ArrayOfRecipesFinalWithoutDoublon =
+			ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.filter((value) =>
+				ArrayOfRecipesComingFromTagsBarWithoutDoublon.includes(value)
+			);
+	} else if (
+		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.length == 0 &&
+		ArrayOfRecipesComingFromTagsBarWithoutDoublon.length > 0
+	) {
+		ArrayOfRecipesFinalWithoutDoublon =
+			ArrayOfRecipesComingFromTagsBarWithoutDoublon;
+	} else if (
+		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon.length > 0 &&
+		ArrayOfRecipesComingFromTagsBarWithoutDoublon.length == 0
+	) {
+		ArrayOfRecipesFinalWithoutDoublon =
+			ArrayOfRecipesComingFromMainSearchBarWithoutDoublon;
+	} else {
+		ArrayOfRecipesFinalWithoutDoublon.length = 0;
+	}
+
+	if (ArrayOfRecipesFinalWithoutDoublon.length == 0) {
+		results.innerHTML =
+			"Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.";
+	} else {
+		results.innerHTML = `${ArrayOfRecipesFinalWithoutDoublon.map(
+			updateResults
+		).join("")}`;
+	}
+}
+
+//Define remaining lists of filters
+function UpdateArraysOfIngredientsAndAppareilsAndUstensiles() {
+	listOfAvailableTagIngredient = getIngredients(recipes);
+	listOfAvailableTagAppliance = getAppareils(recipes);
+	listOfAvailableTagUstensil = getUstensiles(recipes);
+	//Populate list in listsboxs
+	LocationOfListOfIngredient.innerHTML = `${listOfAvailableTagIngredient
+		.map(updateList)
+		.join("")}`;
+	LocationOfListOfAppliance.innerHTML = `${listOfAvailableTagAppliance
+		.map(updateList)
+		.join("")}`;
+	LocationOfListOfUstensil.innerHTML = `${listOfAvailableTagUstensil
+		.map(updateList)
+		.join("")}`;
+}
+function updateList(data) {
+	return `<li>${capitalizeFirstLetter(data)}</li>`;
+}
+function updateResumeList(data) {
+	return `<li>${data}</li>`;
+}
+function updateIngredients(data) {
+	return `<p class="ingredient">
+	<span class="ingredient-name">${data.ingredient}</span>
+	<span class="ingredient-quantity">${data.quantity ? data.quantity : ""}</span>
+	<span class="ingredient-unit">${data.unit ? data.unit : ""}</span>
+</p>`;
+}
+function updateResults(data) {
+	return `<div class="recipe card">
+	<img src="..." class="card-img-top" alt="..." />
+	<div class="text-container">
+		<h2 class="">${data.name}</h2>
+		<p class="recipe-time">${data.time} min</p>
+
+		<div class="recipe-ingredients">
+		${data.ingredients.map(updateIngredients).join("")}
+		
+
+		</div>
+		<div class="recipe-description-bloc overflow"><p class="recipe-description">${
+			data.description
+		}
+		</p></div>
+	</div>
+</div>`;
+}
+//DEBUT DE L'EXECUTION
 
 // ArrayOfRecipesFinalWithoutDoublon = recipes;
 console.log(ArrayOfRecipesFinalWithoutDoublon);
@@ -488,7 +444,3 @@ mainSearchInput.addEventListener("keyup", (e) => {
 	let value = e.target.value;
 	filterOnMainInput(value);
 });
-
-// document.addEventListener("DOMContentLoaded", (event) => {
-// 	mainFunction();
-// });

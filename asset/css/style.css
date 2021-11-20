@@ -308,25 +308,32 @@ body {
 .recipe .text-container {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-areas: "title title title time" "ingredients ingredients description description";
   background-color: #E7E7E7;
   height: 186px;
   padding: 1rem;
 }
 
 .recipe .text-container h2 {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: title;
   font-size: 1.6rem;
   margin: 1rem;
 }
 
 .recipe .text-container .recipe-time {
   font-size: 1.8rem;
-  padding-left: 1rem;
+  -ms-grid-row: 1;
+  -ms-grid-column: 4;
+  grid-area: time;
 }
 
 .recipe .text-container .recipe-time::before {
-  padding-right: 1rem;
+  padding-right: 0.5rem;
   font-family: FontAwesome;
   font-weight: 400;
   content: "\f017";
@@ -334,6 +341,10 @@ body {
 
 .recipe .text-container .recipe-ingredients {
   font-size: 1.2rem;
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: ingredients;
 }
 
 .recipe .text-container .recipe-ingredients .ingredient {
@@ -345,18 +356,23 @@ body {
 }
 
 .recipe .text-container .recipe-description-bloc {
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
+  -ms-grid-column-span: 2;
+  grid-area: description;
   display: -webkit-box;
-  -webkit-line-clamp: 6;
+  -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
   overflow: hidden;
   width: 100%;
-  height: 10.8rem;
+  height: 10rem;
   margin: 0;
   padding: 0;
 }
 
 .recipe .text-container .recipe-description-bloc .recipe-description {
   font-size: 1.2rem;
+  line-height: 1.4rem;
   margin: 0;
   padding: 0rem;
 }
@@ -485,7 +501,7 @@ a {
 
 .accordion-item .accordion-header .accordion-button input {
   height: 100%;
-  width: 60%;
+  width: 200px;
   height: 4vh;
   padding: auto 2vw auto 1vw;
   display: none;
