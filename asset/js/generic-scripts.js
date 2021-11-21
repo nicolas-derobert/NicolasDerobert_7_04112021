@@ -88,7 +88,8 @@ const getUstensiles = function (params) {
 	newtab = newtab.flat();
 	let uniq = [...new Set(newtab)]; // apply filter on table
 	return uniq;
-};
+}
+
 function filterByFilteringElement(ValueOfInput) {
 	ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes.filter(
 		(recette) =>
@@ -100,7 +101,6 @@ function filterByFilteringElement(ValueOfInput) {
 			)
 	);
 }
-
 
 function filterOnMainInput(ValueOfInput) {
 	// console.log(ValueOfInput);
