@@ -88,17 +88,16 @@ const getUstensiles = function (params) {
 	newtab = newtab.flat();
 	let uniq = [...new Set(newtab)]; // apply filter on table
 	return uniq;
-}
+};
 
 function filterByFilteringElement(ValueOfInput) {
 	ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes.filter(
 		(recette) =>
 			recette.name.toLowerCase().includes(ValueOfInput.toLowerCase()) ||
-			recette.ingredients.some(
-				(ing) =>
-					ing.ingredient.toLowerCase().includes(ValueOfInput.toLowerCase()) ||
-					recette.description.toLowerCase().includes(ValueOfInput.toLowerCase())
-			)
+			recette.ingredients.some((ing) =>
+				ing.ingredient.toLowerCase().includes(ValueOfInput.toLowerCase())
+			) ||
+			recette.description.toLowerCase().includes(ValueOfInput.toLowerCase())
 	);
 }
 
@@ -184,7 +183,7 @@ function applyEventListenerOnTagOnTagBar() {
 			listOfSelectedTagIngredient = listOfSelectedTagIngredient.filter(
 				(item) => item !== value
 			);
-			updateTagsSearch()
+			updateTagsSearch();
 		});
 	});
 	areaOfSelectedTagAppliance.forEach((tag) => {
@@ -193,7 +192,7 @@ function applyEventListenerOnTagOnTagBar() {
 			listOfSelectedTagAppliance = listOfSelectedTagAppliance.filter(
 				(item) => item !== value
 			);
-			updateTagsSearch()
+			updateTagsSearch();
 		});
 	});
 	areaOfSelectedTagUstensil.forEach((tag) => {
@@ -202,7 +201,7 @@ function applyEventListenerOnTagOnTagBar() {
 			listOfSelectedTagUstensil = listOfSelectedTagUstensil.filter(
 				(item) => item !== value
 			);
-			updateTagsSearch()
+			updateTagsSearch();
 		});
 	});
 }
@@ -215,11 +214,11 @@ function updateTagsSearch() {
 }
 
 //Identify selected element and place it in resume bar
-function filterOnHashtag (e, filterToApply, typeOf) {
+function filterOnHashtag(e, filterToApply, typeOf) {
 	AddNewTagsInSelectedTagsBar(filterToApply, typeOf);
 	UpdateListOfRecipesComingFromTag();
 	getGlobalResult();
-};
+}
 function AddNewTagsInSelectedTagsBar(filterToApply, typeOf) {
 	//Populate appropriate array of all selected element
 	let formatedFilterToApply = capitalizeFirstLetter(filterToApply);
