@@ -133,6 +133,7 @@ function filterOnMainInput(ValueOfInput) {
 		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes;
 		getGlobalResult();
 	}
+	UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
 	applytagEventListener();
 }
 
@@ -233,12 +234,16 @@ function updateTagsSearch() {
 	applyEventListenerOnTagOnTagBar();
 	UpdateListOfRecipesComingFromTag();
 	getGlobalResult();
+	UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
+	applytagEventListener();
 }
 
 //Identify selected element and place it in resume bar
 function filterOnHashtag (e, filterToApply, typeOf) {
 	AddNewTagsInSelectedTagsBar(filterToApply, typeOf);
 	UpdateListOfRecipesComingFromTag();
+	UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
+	applytagEventListener();
 	getGlobalResult();
 };
 function AddNewTagsInSelectedTagsBar(filterToApply, typeOf) {
@@ -327,9 +332,18 @@ function getGlobalResult() {
 
 //Define remaining lists of filters
 function UpdateArraysOfIngredientsAndAppareilsAndUstensiles() {
-	listOfAvailableTagIngredient = getIngredients(ArrayOfRecipesComingFromMainSearchBarWithoutDoublon);
-	listOfAvailableTagAppliance = getAppareils(ArrayOfRecipesComingFromMainSearchBarWithoutDoublon);
-	listOfAvailableTagUstensil = getUstensiles(ArrayOfRecipesComingFromMainSearchBarWithoutDoublon);
+	// const tempArray = []
+	let tempArray = [...ArrayOfRecipesComingFromMainSearchBarWithoutDoublon, ...ArrayOfRecipesComingFromTagsBarWithoutDoublon];
+	if (tempArray.length==0) {
+		tempArray=recipes ;
+	}
+	else{
+		console.log(tempArray)
+	}
+ 
+	listOfAvailableTagIngredient = getIngredients(tempArray);
+	listOfAvailableTagAppliance = getAppareils(tempArray);
+	listOfAvailableTagUstensil = getUstensiles(tempArray);
 	//Populate list in listsboxs
 	LocationOfListOfIngredient.innerHTML = `${listOfAvailableTagIngredient
 		.map(updateList)
@@ -378,7 +392,7 @@ function updateResults(data) {
 //------------------------------//
 
 //DEBUT DE L'EXECUTION
-ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes;
+// ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes;
 UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
 applytagEventListener();
 
