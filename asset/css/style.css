@@ -9,6 +9,10 @@ body {
   font-family: Lato;
 }
 
+h2 {
+  display: none;
+}
+
 .modal {
   position: fixed;
   top: 0;
@@ -316,7 +320,7 @@ body {
   padding: 1rem;
 }
 
-.recipe .text-container h2 {
+.recipe .text-container .accordion-header {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
