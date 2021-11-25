@@ -128,11 +128,11 @@ function filterOnMainInput(ValueOfInput) {
 		filterByAddingElement(ValueOfInput);
 		// filterByFilteringElement(ValueOfInput);
 		getGlobalResult();
+		UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
 	} else {
 		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes;
 		getGlobalResult();
 	}
-	UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
 	applytagEventListener();
 }
 
@@ -265,9 +265,7 @@ function AddNewTagsInSelectedTagsBar(filterToApply, typeOf) {
 	applyEventListenerOnTagOnTagBar();
 }
 function UpdateListOfRecipesComingFromTag() {
-	console.log(listOfSelectedTagAppliance);
-	console.log(listOfSelectedTagIngredient);
-	console.log(listOfSelectedTagUstensil);
+
 	ArrayOfRecipesComingFromTagsBarWithoutDoublon = recipes.filter(function (el) {
 		return (
 			(listOfSelectedTagUstensil.length > 0
@@ -329,9 +327,9 @@ function getGlobalResult() {
 
 //Define remaining lists of filters
 function UpdateArraysOfIngredientsAndAppareilsAndUstensiles() {
-	listOfAvailableTagIngredient = getIngredients(recipes);
-	listOfAvailableTagAppliance = getAppareils(recipes);
-	listOfAvailableTagUstensil = getUstensiles(recipes);
+	listOfAvailableTagIngredient = getIngredients(ArrayOfRecipesComingFromMainSearchBarWithoutDoublon);
+	listOfAvailableTagAppliance = getAppareils(ArrayOfRecipesComingFromMainSearchBarWithoutDoublon);
+	listOfAvailableTagUstensil = getUstensiles(ArrayOfRecipesComingFromMainSearchBarWithoutDoublon);
 	//Populate list in listsboxs
 	LocationOfListOfIngredient.innerHTML = `${listOfAvailableTagIngredient
 		.map(updateList)
@@ -375,12 +373,13 @@ function updateResults(data) {
 	</div>
 </div>`;
 }
-//DEBUT DE L'EXECUTION
 
-// ArrayOfRecipesFinalWithoutDoublon = recipes;
-console.log(ArrayOfRecipesFinalWithoutDoublon);
+
+//------------------------------//
+
+//DEBUT DE L'EXECUTION
+ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes;
 UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
-// Appy eventListener on tags
 applytagEventListener();
 
 // For all listbox, apply approriate EventListener
