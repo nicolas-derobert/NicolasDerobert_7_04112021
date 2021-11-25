@@ -17,7 +17,7 @@
 		background-color: $color-seventhly;
 		height: 186px;
 		padding: 1rem;
-		h2 {
+		.accordion-header {
 			grid-area: title;
 			font-size: 1.6rem;
 			margin: 1rem;
