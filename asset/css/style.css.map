@@ -13,8 +13,7 @@
         "pattern7-1/components/_accordion.scss",
         "pattern7-1/layout/_forms.scss",
         "pattern7-1/pages/_main.scss",
-        "pattern7-1/pages/_index.scss",
-        "pattern7-1/pages/_photographer.scss"
+        "pattern7-1/pages/_index.scss"
     ],
     "names": [],
     "file": "style.css"
