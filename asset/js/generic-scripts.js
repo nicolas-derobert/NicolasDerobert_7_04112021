@@ -415,6 +415,9 @@ inputIngredient.addEventListener("keyup", function (e) {
 		.join("")}`;
 	applytagEventListener();
 });
+inputIngredient.addEventListener("click", function (e) {
+	e.stopPropagation();
+});
 inputAppliance.addEventListener("keyup", function (e) {
 	const term = e.target.value.toLowerCase();
 	console.log(term);
@@ -425,6 +428,9 @@ inputAppliance.addEventListener("keyup", function (e) {
 		.map(updateList)
 		.join("")}`;
 	applytagEventListener();
+});
+inputAppliance.addEventListener("click", function (e) {
+	e.stopPropagation();
 });
 inputUstensil.addEventListener("keyup", function (e) {
 	const term = e.target.value.toLowerCase();
@@ -439,6 +445,9 @@ inputUstensil.addEventListener("keyup", function (e) {
 		.map(updateList)
 		.join("")}`;
 	applytagEventListener();
+});
+inputUstensil.addEventListener("click", function (e) {
+	e.stopPropagation();
 });
 mainSearchInput.addEventListener("keyup", (e) => {
 	let value = e.target.value;
