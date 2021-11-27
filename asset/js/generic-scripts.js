@@ -90,41 +90,21 @@ const getUstensiles = function (params) {
 	let uniq = [...new Set(newtab)]; // apply filter on table
 	return uniq;
 };
-function filterByAddingElement(ValueOfInput) {
-	//Go through array of recipes
-	ArrayOfRecipesComingFromMainSearchBar.length = 0;
 
-	recipes.forEach((recette) => {
-		//Add recipes if input match name
-		if (recette.name.toLowerCase().includes(ValueOfInput.toLowerCase())) {
-			ArrayOfRecipesComingFromMainSearchBar.unshift(recette);
-		}
-		//Add recipes if input match one of ingredient
-		recette.ingredients.forEach((ingredients) => {
-			if (
-				ingredients.ingredient
-					.toLowerCase()
-					.includes(ValueOfInput.toLowerCase())
-			) {
-				ArrayOfRecipesComingFromMainSearchBar.unshift(recette);
-			}
-		});
-		//Add recipes if input match elements of description
-		if (
+function filterByFilteringElement(ValueOfInput) {
+	ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes.filter(
+		(recette) =>
+			recette.name.toLowerCase().includes(ValueOfInput.toLowerCase()) ||
+			recette.ingredients.some((ing) =>
+				ing.ingredient.toLowerCase().includes(ValueOfInput.toLowerCase())
+			) ||
 			recette.description.toLowerCase().includes(ValueOfInput.toLowerCase())
-		) {
-			ArrayOfRecipesComingFromMainSearchBar.unshift(recette);
-		}
-	});
-
-	ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = [
-		...new Set(ArrayOfRecipesComingFromMainSearchBar),
-	]; // apply filter on table
+	);
 }
 
 function filterOnMainInput(ValueOfInput) {
 	if (ValueOfInput.length > 2) {
-		filterByAddingElement(ValueOfInput);
+		filterByFilteringElement(ValueOfInput);
 		getGlobalResult();
 	} else {
 		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes;
@@ -202,7 +182,7 @@ function applyEventListenerOnTagOnTagBar() {
 			listOfSelectedTagIngredient = listOfSelectedTagIngredient.filter(
 				(item) => item !== value
 			);
-			updateTagsSearch()
+			updateTagsSearch();
 		});
 	});
 	areaOfSelectedTagAppliance.forEach((tag) => {
@@ -211,7 +191,7 @@ function applyEventListenerOnTagOnTagBar() {
 			listOfSelectedTagAppliance = listOfSelectedTagAppliance.filter(
 				(item) => item !== value
 			);
-			updateTagsSearch()
+			updateTagsSearch();
 		});
 	});
 	areaOfSelectedTagUstensil.forEach((tag) => {
@@ -220,7 +200,7 @@ function applyEventListenerOnTagOnTagBar() {
 			listOfSelectedTagUstensil = listOfSelectedTagUstensil.filter(
 				(item) => item !== value
 			);
-			updateTagsSearch()
+			updateTagsSearch();
 		});
 	});
 }
@@ -235,13 +215,13 @@ function updateTagsSearch() {
 }
 
 //Identify selected element and place it in resume bar
-function filterOnHashtag (e, filterToApply, typeOf) {
+function filterOnHashtag(e, filterToApply, typeOf) {
 	AddNewTagsInSelectedTagsBar(filterToApply, typeOf);
 	UpdateListOfRecipesComingFromTag();
 	UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
 	applytagEventListener();
 	getGlobalResult();
-};
+}
 function AddNewTagsInSelectedTagsBar(filterToApply, typeOf) {
 	//Populate appropriate array of all selected element
 	let formatedFilterToApply = capitalizeFirstLetter(filterToApply);
