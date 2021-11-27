@@ -1,14 +1,14 @@
 const menuIngredient = document.querySelectorAll("#menu-ingredients");
 const menuAppliance = document.querySelectorAll("#menu-appareil");
 const menuUstensil = document.querySelectorAll("#menu-ustensiles");
-const AreaOfListOfIngredient = document.getElementById("area-list-ingredients");
-const AreaOfListOfAppliance = document.getElementById("area-list-appareil");
-const AreaOfListOfUstensil = document.getElementById("area-list-ustensiles");
-const LocationOfListOfIngredient = document.getElementById(
+const areaOfListOfIngredient = document.getElementById("area-list-ingredients");
+const areaOfListOfAppliance = document.getElementById("area-list-appareil");
+const areaOfListOfUstensil = document.getElementById("area-list-ustensiles");
+const locationOfListOfIngredient = document.getElementById(
 	"menu-list-ingredients"
 );
-const LocationOfListOfAppliance = document.getElementById("menu-list-appareil");
-const LocationOfListOfUstensil = document.getElementById(
+const locationOfListOfAppliance = document.getElementById("menu-list-appareil");
+const locationOfListOfUstensil = document.getElementById(
 	"menu-list-ustensiles"
 );
 const listButton = document.getElementsByClassName("accordion-button");
@@ -58,15 +58,16 @@ let listOfFilteredTagAppliance = [];
 let listOfFilteredTagUstensil = [];
 
 function capitalizeFirstLetter(string) {
-	string.toLowerCase();
-	return string.charAt(0).toUpperCase() + string.slice(1);
+	let value = string.toLowerCase();
+	value = value.charAt(0).toUpperCase() + value.slice(1);
+	return value;
 }
 
 const getIngredients = function (params) {
 	let newtab = [];
 	for (let i = 0; i < params.length; i++) {
 		for (let j = 0; j < params[i].ingredients.length; j++) {
-			newtab.unshift(params[i].ingredients[j].ingredient);
+			newtab.unshift(capitalizeFirstLetter(params[i].ingredients[j].ingredient));
 		}
 	}
 	let uniq = [...new Set(newtab)]; // apply filter on table
@@ -75,7 +76,7 @@ const getIngredients = function (params) {
 const getAppareils = function (params) {
 	let newtab = [];
 	for (let i = 0; i < params.length; i++) {
-		newtab.unshift(params[i].appliance);
+		newtab.unshift(capitalizeFirstLetter(params[i].appliance));
 	}
 	let uniq = [...new Set(newtab)]; // apply filter on table
 	return uniq;
@@ -119,16 +120,12 @@ function filterByAddingElement(ValueOfInput) {
 	ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = [
 		...new Set(ArrayOfRecipesComingFromMainSearchBar),
 	]; // apply filter on table
-	console.log(ArrayOfRecipesComingFromMainSearchBarWithoutDoublon);
 }
 
 function filterOnMainInput(ValueOfInput) {
-	// console.log(ValueOfInput);
 	if (ValueOfInput.length > 2) {
 		filterByAddingElement(ValueOfInput);
-		// filterByFilteringElement(ValueOfInput);
 		getGlobalResult();
-		UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
 	} else {
 		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes;
 		getGlobalResult();
@@ -156,9 +153,8 @@ function applytagEventListener() {
 	tagIngredients.forEach(function (val) {
 		val.addEventListener("click", (e) => {
 			typeOfInput = typeIngredients;
-			console.log(val);
 			filterOnHashtag(e, val.innerHTML, typeOfInput);
-			AreaOfListOfIngredient.classList.toggle("show");
+			areaOfListOfIngredient.classList.toggle("show");
 			inputIngredient.classList.toggle("show");
 			titleIngredient.classList.toggle("show");
 		});
@@ -170,7 +166,7 @@ function applytagEventListener() {
 		val.addEventListener("click", (e) => {
 			typeOfInput = typeAppareil;
 			filterOnHashtag(e, val.innerHTML, typeOfInput);
-			AreaOfListOfAppliance.classList.toggle("show");
+			areaOfListOfAppliance.classList.toggle("show");
 			inputAppliance.classList.toggle("show");
 			titleAppliance.classList.toggle("show");
 		});
@@ -182,7 +178,7 @@ function applytagEventListener() {
 		val.addEventListener("click", (e) => {
 			typeOfInput = typeUstensiles;
 			filterOnHashtag(e, val.innerHTML, typeOfInput);
-			AreaOfListOfUstensil.classList.toggle("show");
+			areaOfListOfUstensil.classList.toggle("show");
 			inputUstensil.classList.toggle("show");
 			titleUstensil.classList.toggle("show");
 		});
@@ -266,7 +262,6 @@ function AddNewTagsInSelectedTagsBar(filterToApply, typeOf) {
 	}
 	// Place information on resume bar
 	UpdateDisplayingOfTag();
-
 	applyEventListenerOnTagOnTagBar();
 }
 function UpdateListOfRecipesComingFromTag() {
@@ -332,26 +327,23 @@ function getGlobalResult() {
 
 //Define remaining lists of filters
 function UpdateArraysOfIngredientsAndAppareilsAndUstensiles() {
-	// const tempArray = []
 	let tempArray = [...ArrayOfRecipesComingFromMainSearchBarWithoutDoublon, ...ArrayOfRecipesComingFromTagsBarWithoutDoublon];
 	if (tempArray.length==0) {
 		tempArray=recipes ;
 	}
-	else{
-		console.log(tempArray)
-	}
+
  
 	listOfAvailableTagIngredient = getIngredients(tempArray);
 	listOfAvailableTagAppliance = getAppareils(tempArray);
 	listOfAvailableTagUstensil = getUstensiles(tempArray);
 	//Populate list in listsboxs
-	LocationOfListOfIngredient.innerHTML = `${listOfAvailableTagIngredient
+	locationOfListOfIngredient.innerHTML = `${listOfAvailableTagIngredient
 		.map(updateList)
 		.join("")}`;
-	LocationOfListOfAppliance.innerHTML = `${listOfAvailableTagAppliance
+	locationOfListOfAppliance.innerHTML = `${listOfAvailableTagAppliance
 		.map(updateList)
 		.join("")}`;
-	LocationOfListOfUstensil.innerHTML = `${listOfAvailableTagUstensil
+	locationOfListOfUstensil.innerHTML = `${listOfAvailableTagUstensil
 		.map(updateList)
 		.join("")}`;
 }
@@ -370,7 +362,7 @@ function updateIngredients(data) {
 }
 function updateResults(data) {
 	return `<div class="recipe card">
-	<img src="..." class="card-img-top" alt="..." />
+	<img src="#" class="card-img-top" alt="..." />
 	<div class="text-container">
 		<h2 class="">${data.name}</h2>
 		<p class="recipe-time">${data.time} min</p>
@@ -400,17 +392,16 @@ applytagEventListener();
 for (let i = 0; i < listButton.length; i++) {
 	listButton[i].addEventListener("click", function (el) {
 		el.currentTarget.classList.toggle("collapsed");
-		// UpdateArraysOfIngredientsAndAppareilsAndUstensiles()
 		if (el.target.id === menuIngredient[0].id) {
-			AreaOfListOfIngredient.classList.toggle("show");
+			areaOfListOfIngredient.classList.toggle("show");
 			inputIngredient.classList.toggle("show");
 			titleIngredient.classList.toggle("show");
 		} else if (el.target.id === menuAppliance[0].id) {
-			AreaOfListOfAppliance.classList.toggle("show");
+			areaOfListOfAppliance.classList.toggle("show");
 			inputAppliance.classList.toggle("show");
 			titleAppliance.classList.toggle("show");
 		} else if (el.target.id === menuUstensil[0].id) {
-			AreaOfListOfUstensil.classList.toggle("show");
+			areaOfListOfUstensil.classList.toggle("show");
 			inputUstensil.classList.toggle("show");
 			titleUstensil.classList.toggle("show");
 		}
@@ -419,11 +410,10 @@ for (let i = 0; i < listButton.length; i++) {
 
 inputIngredient.addEventListener("keyup", function (e) {
 	const term = e.target.value.toLowerCase();
-	console.log(term);
 	listOfFilteredTagIngredients = listOfAvailableTagIngredient.filter((s) =>
 		s.toLowerCase().includes(term)
 	);
-	LocationOfListOfIngredient.innerHTML = `${listOfFilteredTagIngredients
+	locationOfListOfIngredient.innerHTML = `${listOfFilteredTagIngredients
 		.map(updateList)
 		.join("")}`;
 	applytagEventListener();
@@ -433,11 +423,10 @@ inputIngredient.addEventListener("click", function (e) {
 });
 inputAppliance.addEventListener("keyup", function (e) {
 	const term = e.target.value.toLowerCase();
-	console.log(term);
 	listOfFilteredTagAppliance = listOfAvailableTagAppliance.filter((s) =>
 		s.toLowerCase().includes(term)
 	);
-	LocationOfListOfAppliance.innerHTML = `${listOfFilteredTagAppliance
+	locationOfListOfAppliance.innerHTML = `${listOfFilteredTagAppliance
 		.map(updateList)
 		.join("")}`;
 	applytagEventListener();
@@ -447,14 +436,11 @@ inputAppliance.addEventListener("click", function (e) {
 });
 inputUstensil.addEventListener("keyup", function (e) {
 	const term = e.target.value.toLowerCase();
-	console.log(term);
-	// if (term.length > 2) {
 	listOfFilteredTagUstensil = listOfAvailableTagUstensil.filter((s) =>
 		s.toLowerCase().includes(term)
 	);
 
-	console.log(ArrayOfRecipesComingFromTagsBar);
-	LocationOfListOfUstensil.innerHTML = `${listOfFilteredTagUstensil
+	locationOfListOfUstensil.innerHTML = `${listOfFilteredTagUstensil
 		.map(updateList)
 		.join("")}`;
 	applytagEventListener();
