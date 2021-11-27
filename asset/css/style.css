@@ -10,7 +10,7 @@ body {
 }
 
 h2 {
-  /* display: none; */
+  display: none;
 }
 
 .recipe {
@@ -26,6 +26,7 @@ h2 {
           justify-content: center;
   background-color: #C7BEBE;
   border: none;
+  min-width: 350px;
 }
 
 .recipe img {
@@ -38,20 +39,18 @@ h2 {
   display: grid;
   -ms-grid-columns: 1fr 1fr 1fr 1fr;
       grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-template-areas: "title title title time"
- "ingredients ingredients description description";
+      grid-template-areas: "title title title time" "ingredients ingredients description description";
   background-color: #E7E7E7;
   height: 186px;
   padding: 1rem;
 }
 
-.recipe .text-container .accordion-header {
+.recipe .text-container h2 {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-area: title;
-  font-size: 1.6rem;
-  margin: 1rem;
+  display: block;
 }
 
 .recipe .text-container .recipe-time {
@@ -206,16 +205,10 @@ a {
   border: none;
   border-radius: 5px;
   overflow-anchor: none;
-  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
- border-color 0.15s ease-in-out, border-radius 0.15s ease, -webkit-box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
- border-color 0.15s ease-in-out, border-radius 0.15s ease, -webkit-box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
- border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
- border-radius 0.15s ease;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
- border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
- border-radius 0.15s ease, -webkit-box-shadow 0.15s ease-in-out;
+  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, border-radius 0.15s ease, -webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, border-radius 0.15s ease, -webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease, -webkit-box-shadow 0.15s ease-in-out;
 }
 
 .accordion-item .accordion-header .accordion-button span {
@@ -334,21 +327,6 @@ a {
   border-top: 0;
 }
 
-.accordion-item:last-of-type {
-  border-bottom-right-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-}
-
-.accordion-item:last-of-type .accordion-button.collapsed {
-  border-bottom-right-radius: calc(0.25rem - 1px);
-  border-bottom-left-radius: calc(0.25rem - 1px);
-}
-
-.accordion-item:last-of-type .accordion-collapse {
-  border-bottom-right-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-}
-
 .accordion-body {
   padding: 1rem 1.25rem;
   min-height: 5rem;
@@ -399,11 +377,21 @@ a {
   display: block;
 }
 
+.input-group {
+  height: 6vh;
+  margin: 2vh 0vw;
+}
+
 .input-group .form-control {
   background-color: #E7E7E7;
   border-style: none;
   border-radius: 5px 0px 0px 5px;
   font-size: 1.8rem;
+  height: 100%;
+}
+
+.input-group .input-group-append {
+  height: 100%;
 }
 
 .input-group .input-group-append .input-group-text {
@@ -415,6 +403,7 @@ a {
 
 #search-resume {
   margin-top: 2vh;
+  margin-left: 2vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -503,10 +492,16 @@ p {
   margin-bottom: 0.4em;
 }
 
-h1 {
+.container-fluid {
+  margin: 2vh 0vw;
+}
+
+.container-fluid h1 {
   margin: auto;
   padding-top: 1.5rem;
   color: #D04F4F;
+  font-weight: bold;
+  font-size: 3.2rem;
 }
 
 .location {

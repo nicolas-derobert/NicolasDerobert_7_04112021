@@ -1,11 +1,15 @@
 .input-group {
+	height: 6vh;
+	margin: 2vh 0vw;
 	.form-control {
 		background-color: $color-seventhly;
 		border-style: none;
 		border-radius: 5px 0px 0px 5px;
 		font-size: 1.8rem;
+		height: 100%;
 	}
 	.input-group-append {
+		height: 100%;
 		.input-group-text {
 			background-color: $color-seventhly;
 			border-style: none;
@@ -15,7 +19,8 @@
 	}
 }
 #search-resume {
-    margin-top: 2vh;;
+    margin-top: 2vh;
+	margin-left: 2vh;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
