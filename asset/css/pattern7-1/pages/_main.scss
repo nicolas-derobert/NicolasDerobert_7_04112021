@@ -24,10 +24,15 @@ p {
 	margin-top: 0.4em;
 	margin-bottom: 0.4em;
 }
+.container-fluid {
+	margin: 2vh 0vw;
 h1 {
 	margin: auto;
 	padding-top: 1.5rem;
 	color: $color-primary;
+	font-weight: bold;
+	font-size: 3.2rem;
+}
 }
 
 .location {

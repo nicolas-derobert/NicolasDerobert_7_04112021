@@ -4,6 +4,7 @@
 	justify-content: center;
 	background-color: $color-eighthly;
 	border: none;
+	min-width: 350px;
 	img {
 		height: 178px;
 		visibility: hidden;
@@ -17,11 +18,16 @@
 		background-color: $color-seventhly;
 		height: 186px;
 		padding: 1rem;
-		.accordion-header {
+		h2 {
 			grid-area: title;
-			font-size: 1.6rem;
-			margin: 1rem;
-		}
+
+			display: block; 
+		  }
+		// .accordion-header {
+		// 	grid-area: title;
+		// 	font-size: 1.6rem;
+		// 	margin: 1rem;
+		// }
 		.recipe-time {
 			font-size: 1.8rem;
 			// padding-left:1rem ;
