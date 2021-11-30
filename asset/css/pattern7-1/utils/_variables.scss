@@ -8,10 +8,15 @@ $color-seventhly: #E7E7E7;
 $color-eighthly: #C7BEBE;
 
 
-$breakpoint-mobile: 576px;
-$breakpoint-tablet: 768px;
-$breakpoint-desktop: 992px;
-$breakpoint-large:1200px;
-$breakpoint-larger:1400px;
+$breakpoint-small-device-min: 576px;
+$breakpoint-tablet-min: 768px;
+$breakpoint-desktop-min: 992px;
+$breakpoint-large-min:1200px;
 
+
+$breakpoint-mobile-max: 575.98px;
+$breakpoint-small-device-max: 767.98px;
+$breakpoint-tablet-max: 991.98px;
+$breakpoint-desktop-max: 1199.98px;
+$breakpoint-large-max:1400px;
 

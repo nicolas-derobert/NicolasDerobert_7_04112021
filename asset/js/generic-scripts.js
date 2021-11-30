@@ -31,7 +31,6 @@ const searchResumeAppareil = document.getElementById("search-resume-appareil");
 const searchResumeUstensiles = document.getElementById(
 	"search-resume-ustensiles"
 );
-// const recipesIngredients = document.querySelectorAll(".recipe-ingredients");
 
 const typeIngredients = "Ingrédients";
 const typeAppareil = "Appareil";
@@ -108,8 +107,10 @@ function filterOnMainInput(ValueOfInput) {
 		getGlobalResult();
 	} else {
 		ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes;
-		getGlobalResult();
-	}
+		results.innerHTML = `${recipes.map(
+			updateResults
+		).join("")}`;
+		}
 	UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
 	applytagEventListener();
 }
@@ -218,9 +219,10 @@ function updateTagsSearch() {
 function filterOnHashtag(e, filterToApply, typeOf) {
 	AddNewTagsInSelectedTagsBar(filterToApply, typeOf);
 	UpdateListOfRecipesComingFromTag();
-	UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
 	applytagEventListener();
 	getGlobalResult();
+	UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
+	applytagEventListener();
 }
 function AddNewTagsInSelectedTagsBar(filterToApply, typeOf) {
 	//Populate appropriate array of all selected element
@@ -307,7 +309,8 @@ function getGlobalResult() {
 
 //Define remaining lists of filters
 function UpdateArraysOfIngredientsAndAppareilsAndUstensiles() {
-	let tempArray = [...ArrayOfRecipesComingFromMainSearchBarWithoutDoublon, ...ArrayOfRecipesComingFromTagsBarWithoutDoublon];
+	let tempArray = ArrayOfRecipesFinalWithoutDoublon;
+
 	if (tempArray.length==0) {
 		tempArray=recipes ;
 	}
@@ -367,6 +370,9 @@ function updateResults(data) {
 // ArrayOfRecipesComingFromMainSearchBarWithoutDoublon = recipes;
 UpdateArraysOfIngredientsAndAppareilsAndUstensiles();
 applytagEventListener();
+results.innerHTML = `${recipes.map(
+	updateResults
+).join("")}`;
 
 // For all listbox, apply approriate EventListener
 for (let i = 0; i < listButton.length; i++) {

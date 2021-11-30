@@ -1,13 +1,51 @@
- 
-#results{
-// background-color: white;
-  // border-color: #989eaa;
-  display: grid;
-  position: relative;
-  top :100px;
- grid-template-columns: repeat(3, 1fr);
- column-gap: 5vw;
- row-gap: 5vh;
-  // width: 90vw;
-  padding: 2vh 2vw;
+#results {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: 30px;
+	row-gap: 5vh;
+	padding: 2vh 2vw;
+	@include mobile-generic {
+		grid-template-columns: 1fr;
+  }
+	@include small-generic {
+		grid-template-columns: 1fr;
+	}
+	@include tablet-generic {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	@include desktop-generic {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	@include large-generic {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@mixin large-generic {
+	@media (min-width: $breakpoint-large-max) {
+		@content;
+	}
+}
+
+@mixin desktop-generic {
+	@media (min-width: $breakpoint-desktop-min) and (max-width: $breakpoint-desktop-max) {
+		@content;
+	}
+}
+//Tablet
+@mixin tablet-generic {
+	@media (min-width: $breakpoint-tablet-min) and (max-width: $breakpoint-tablet-max) {
+		@content;
+	}
+}
+@mixin small-generic {
+	@media (min-width: $breakpoint-small-device-min) and (max-width: $breakpoint-small-device-max) {
+		@content;
+	}
+}
+//mobile
+@mixin mobile-generic {
+	@media screen and (max-width: $breakpoint-mobile-max) {
+		@content;
+	}
 }

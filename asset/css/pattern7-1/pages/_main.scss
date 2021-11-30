@@ -14,8 +14,8 @@ body {
 	width: 100%;
 	padding: 0px;
 	margin: 0px;
-	@include larger-generic {
-		width: 1400px;
+	@include large-generic {
+		max-width: 1700px;
 		margin: auto;
 	}
 }

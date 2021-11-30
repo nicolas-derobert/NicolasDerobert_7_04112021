@@ -4,7 +4,8 @@
 	justify-content: center;
 	background-color: $color-eighthly;
 	border: none;
-	min-width: 350px;
+width: 100%;
+min-width: 300px;
 	img {
 		height: 178px;
 		visibility: hidden;
@@ -23,14 +24,9 @@
 
 			display: block; 
 		  }
-		// .accordion-header {
-		// 	grid-area: title;
-		// 	font-size: 1.6rem;
-		// 	margin: 1rem;
-		// }
+
 		.recipe-time {
 			font-size: 1.8rem;
-			// padding-left:1rem ;
 			grid-area: time;
 			&::before {
 				padding-right: 0.5rem;

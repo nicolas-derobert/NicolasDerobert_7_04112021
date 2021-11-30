@@ -15,6 +15,7 @@
 			border-style: none;
 			border-radius: 0px 5px 5px 0px;
 			font-size: 1.8rem;
+			padding-right: 1.5vw;
 		}
 	}
 }
@@ -53,6 +54,16 @@
 			list-style-type: none;
 			color: $color-sixthly;
 			padding: 1vh 3vw 1vh 2vw;
+				@include mobile-generic {
+					padding: 1vh 8vw 1vh 2vw;
+				}
+	@include small-generic {
+		padding: 1vh 5vw 1vh 2vw;
+	}
+	@include tablet-generic {
+		padding: 1vh 4vw 1vh 2vw;
+	}
+
 			&::after {
 				position: absolute;
 				right: 1vw;
@@ -64,7 +75,3 @@
 		}
 	}
 }
-// <div id="search-resume">
-// 					<span id="search-resume-ingredients"><li></li></span>
-// 					<span id="search-resume-appareil"></span>
-// 					<span id="search-resume-ustensiles"></span>

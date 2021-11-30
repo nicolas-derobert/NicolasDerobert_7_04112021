@@ -26,7 +26,8 @@ h2 {
           justify-content: center;
   background-color: #C7BEBE;
   border: none;
-  min-width: 350px;
+  width: 100%;
+  min-width: 300px;
 }
 
 .recipe img {
@@ -158,15 +159,14 @@ a {
 }
 
 .accordion {
-  position: absolute;
   z-index: 10;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
@@ -180,9 +180,43 @@ a {
   margin: 2vw;
 }
 
-.accordion-item ul {
-  -webkit-columns: 3;
-          columns: 3;
+.accordion-item ul li {
+  max-width: 160px;
+}
+
+@media screen and (max-width: 575.98px) {
+  .accordion-item ul {
+    -webkit-columns: 1;
+            columns: 1;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .accordion-item ul {
+    -webkit-columns: 1;
+            columns: 1;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .accordion-item ul {
+    -webkit-columns: 1;
+            columns: 1;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .accordion-item ul {
+    -webkit-columns: 2;
+            columns: 2;
+  }
+}
+
+@media (min-width: 1200px) {
+  .accordion-item ul {
+    -webkit-columns: 3;
+            columns: 3;
+  }
 }
 
 .accordion-item .accordion-header {
@@ -192,13 +226,13 @@ a {
 
 .accordion-item .accordion-header .accordion-button {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -ms-grid;
+  display: grid;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
+  min-width: 230px;
   height: 6vh;
   font-size: 1.8rem;
   text-align: left;
@@ -399,6 +433,7 @@ a {
   border-style: none;
   border-radius: 0px 5px 5px 0px;
   font-size: 1.8rem;
+  padding-right: 1.5vw;
 }
 
 #search-resume {
@@ -452,6 +487,24 @@ a {
   padding: 1vh 3vw 1vh 2vw;
 }
 
+@media screen and (max-width: 575.98px) {
+  #search-resume span li {
+    padding: 1vh 8vw 1vh 2vw;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  #search-resume span li {
+    padding: 1vh 5vw 1vh 2vw;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  #search-resume span li {
+    padding: 1vh 4vw 1vh 2vw;
+  }
+}
+
 #search-resume span li::after {
   position: absolute;
   right: 1vw;
@@ -480,9 +533,9 @@ body {
   margin: 0px;
 }
 
-@media screen and (min-width: 1400px) {
+@media (min-width: 1200px) {
   body {
-    width: 1400px;
+    max-width: 1700px;
     margin: auto;
   }
 }
@@ -554,13 +607,46 @@ a:focus {
 #results {
   display: -ms-grid;
   display: grid;
-  position: relative;
-  top: 100px;
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
-  -webkit-column-gap: 5vw;
-          column-gap: 5vw;
+  -webkit-column-gap: 30px;
+          column-gap: 30px;
   row-gap: 5vh;
   padding: 2vh 2vw;
+}
+
+@media screen and (max-width: 575.98px) {
+  #results {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  #results {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  #results {
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  #results {
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  #results {
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+  }
 }
 /*# sourceMappingURL=style.css.map */

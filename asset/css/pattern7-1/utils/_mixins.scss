@@ -3,11 +3,7 @@
   outline: none;
   border-width: 4px;
   border-style: solid;
-  border-color: $color-fifthly;
- 
-  img{
-    // background-color:$color-fifthly ;
-  }
+  border-color: $color-fifthly; 
 
 }
 @mixin new-over {
@@ -17,39 +13,32 @@
   border-color: $color-secondary;
 }
 
-// Media Querries
-@mixin mobile-column-positionning {
-    @media screen and (max-width: $breakpoint-mobile) {
-        grid-template-columns: 1fr;
-    }
-  }
-  
-  @mixin desktop-column-positionning {
-    @media screen and (max-width: $breakpoint-desktop) {
-        grid-template-columns: 1fr 1fr;
-    }
-  }
   @mixin large-generic {
-    @media screen and (max-width: $breakpoint-large) {
-      @content;
-    }
-  }
-  @mixin larger-generic {
-    @media screen and (min-width: $breakpoint-larger) {
+    @media (min-width: $breakpoint-large-min) {
       @content;
     }
   }
   
   @mixin desktop-generic {
-    @media screen and (max-width: $breakpoint-desktop) {
+    @media (min-width: $breakpoint-desktop-min) and (max-width: $breakpoint-desktop-max) {
       @content;
     }
   }
+  //Tablet
+  @mixin tablet-generic {
+    @media (min-width: $breakpoint-tablet-min) and (max-width: $breakpoint-tablet-max) {
+      @content;
+    }
+  }
+  @mixin small-generic {
+    @media (min-width: $breakpoint-small-device-min) and (max-width: $breakpoint-small-device-max) {
+      @content;
+    }
+  }
+  //mobile 
   @mixin mobile-generic {
-    @media screen and (max-width: $breakpoint-mobile) {
+    @media screen and (max-width: $breakpoint-mobile-max) {
       @content;
     }
   }
 
-
-  
